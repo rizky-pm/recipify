@@ -1,47 +1,58 @@
-import { useState } from 'react';
-import { Input, Modal,  } from 'antd';
+import { useState } from "react";
 
-import { Btn } from '../../styles/GlobalStyled';
-import {SigninForm} from 
-
-import NavbarStyled from './navbar.styled';
-
-const { Search } = Input;
+import { Btn } from "../../styles/GlobalStyled";
+import NavbarStyled from "./navbar.styled";
+import SigninModal from "../SigninModal";
+import SignupModal from "../SignupModal";
 
 const Navbar = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
+  const [showSignupModal, setShowSignupModal] = useState<boolean>(false);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const toggleModal = (target: "signin-modal" | "signup-modal") => {
+    if (target === "signin-modal") {
+      setShowSigninModal(!showSigninModal);
+    } else {
+      setShowSignupModal(!showSignupModal);
+    }
   };
 
   return (
-    <>
-      <NavbarStyled>
-        <h1 className='logo'>Recipify</h1>
-        <div className='menu'>
-          <span className='menu__item'>Explore</span>
+    <NavbarStyled>
+      <h1 className="logo">Recipify</h1>
+      <div className="menu">
+        <span className="menu__item">Explore</span>
 
-          <div className='divider'></div>
+        <div className="divider"></div>
 
-          <Btn onClick={toggleModal} type='primary'>
-            Sign In
-          </Btn>
-          <Btn onClick={toggleModal} type='default'>
-            Join Us
-          </Btn>
-        </div>
-      </NavbarStyled>
-      <Modal
-        title='Basic Modal'
-        open={isModalOpen}
-        onOk={toggleModal}
-        onCancel={toggleModal}
-      >
-        <Input placeholder='Email Address' />
-        <Input.Password placeholder='Password' />
-      </Modal>
-    </>
+        <Btn
+          onClick={() => {
+            toggleModal("signin-modal");
+          }}
+          type="primary"
+        >
+          Sign In
+        </Btn>
+        <Btn
+          onClick={() => {
+            toggleModal("signup-modal");
+          }}
+          type="default"
+        >
+          Upload Your Recipe
+        </Btn>
+      </div>
+
+      <SigninModal
+        showSigninModal={showSigninModal}
+        setShowSigninModal={setShowSigninModal}
+      />
+
+      <SignupModal
+        showSignupModal={showSignupModal}
+        setShowSignupModal={setShowSignupModal}
+      />
+    </NavbarStyled>
   );
 };
 

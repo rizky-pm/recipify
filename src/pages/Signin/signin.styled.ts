@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
-import { Row } from 'antd';
+import { styled } from "styled-components";
+import { Row } from "antd";
 
 const SigninStyled = styled(Row)`
   display: flex;
@@ -20,6 +20,7 @@ const SigninStyled = styled(Row)`
     border: none;
     box-shadow: none;
     width: 100%;
+    text-transform: uppercase;
   }
 `;
 

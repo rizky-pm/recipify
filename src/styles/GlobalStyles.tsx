@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import variables from './variables';
+import { createGlobalStyle } from "styled-components";
+import variables from "./variables";
 
 const GlobalStyles = createGlobalStyle`
   ${variables}
@@ -133,6 +133,10 @@ const GlobalStyles = createGlobalStyle`
   table {
     border-collapse: collapse;
     border-spacing: 0;
+  }
+
+  .btn--full-w {
+    width: 100%;
   }
 `;
 

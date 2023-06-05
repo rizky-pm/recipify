@@ -1,21 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { ConfigProvider } from 'antd';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { ConfigProvider } from "antd";
 
-import router from './routes';
-import GlobalStyles from './styles/GlobalStyles';
-import theme from './styles/theme';
+import router from "./routes";
+import GlobalStyles from "./styles/GlobalStyles";
+import theme from "./styles/theme";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: '#5ef38c',
+            colorPrimary: "#1A936F",
             borderRadius: 3,
           },
         }}

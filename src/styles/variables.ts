@@ -1,11 +1,14 @@
-import { css } from 'styled-components';
+import { css } from "styled-components";
 
 const variables = css`
   :root {
     --color-dark: #272635;
+    --color-light-gray: #f4f4f9;
     --color-light: #fffbfc;
-    --color-primary: #5ef38c;
+    --color-primary: #1a936f;
+    --color-primary-light: #5fb39a;
     --color-secondary: #f9a03f;
+    --color-secondary-light: #fbbd79;
 
     --fz-xxs: 0.25rem;
     --fz-xs: 0.5rem;

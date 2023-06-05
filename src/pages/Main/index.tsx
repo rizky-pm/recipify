@@ -1,10 +1,17 @@
-import { Container } from '../../styles/GlobalStyled';
+import MainStyled from "./styled";
+import Hero from "../../components/Hero";
+import Recipes from "../../components/Recipes";
+import ToolBar from "../../components/ToolBar";
 
 const MainPage = () => {
   return (
-    <Container>
-      <h1>Main Page</h1>
-    </Container>
+    // <Container>
+    <MainStyled>
+      <Hero />
+      <ToolBar />
+      <Recipes />
+    </MainStyled>
+    // </Container>
   );
 };
 

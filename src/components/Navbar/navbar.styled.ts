@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
 const NavbarStyled = styled.nav`
   display: flex;
@@ -9,7 +9,7 @@ const NavbarStyled = styled.nav`
   border-bottom: 2px solid var(--color-primary);
 
   .logo {
-    font-family: 'Lobster', cursive;
+    font-family: "Lobster", cursive;
     color: var(--color-dark);
     font-size: var(--fz-xl);
   }
