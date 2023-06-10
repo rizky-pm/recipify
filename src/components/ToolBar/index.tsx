@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import ToolBarStyled from "./styled";
+import ToolBarStyled from './styled';
 
-type Filter = "relevant" | "latest" | "top";
-type TimeRange = "week" | "month" | "year" | "all time";
+type Filter = 'relevant' | 'latest' | 'top';
+type TimeRange = 'week' | 'month' | 'year' | 'all time';
 
-const ToolBar = () => {
-  const [filter, setFilter] = useState<Filter>("relevant");
-  const [timeRange, setTimeRange] = useState<TimeRange>("week");
+type Props = {
+  filter: Filter;
+  setFilter: React.Dispatch<React.SetStateAction<Filter>>;
+  timeRange: TimeRange;
+  setTimeRange: React.Dispatch<React.SetStateAction<TimeRange>>;
+};
+
+const ToolBar: React.FC<Props> = ({
+  filter,
+  setFilter,
+  timeRange,
+  setTimeRange,
+}) => {
+  const activeStyle = {
+    fontWeight: 700,
+  };
 
   const toggleFilter = (target: Filter) => {
     setFilter(target);
@@ -17,102 +30,98 @@ const ToolBar = () => {
     setTimeRange(target);
   };
 
-  const activeStyle = {
-    fontWeight: 700,
-  };
-
   return (
     <ToolBarStyled>
-      <div className="filter">
+      <div className='filter'>
         <span
           style={
-            filter === "relevant"
+            filter === 'relevant'
               ? activeStyle
-              : { backgroundColor: "transparent" }
+              : { backgroundColor: 'transparent' }
           }
           onClick={() => {
-            toggleFilter("relevant");
+            toggleFilter('relevant');
           }}
-          className="check-box"
+          className='check-box'
         >
           Relevant
         </span>
         <span
           style={
-            filter === "latest"
+            filter === 'latest'
               ? activeStyle
-              : { backgroundColor: "transparent" }
+              : { backgroundColor: 'transparent' }
           }
           onClick={() => {
-            toggleFilter("latest");
+            toggleFilter('latest');
           }}
-          className="check-box"
+          className='check-box'
         >
           Latest
         </span>
         <span
           style={
-            filter === "top" ? activeStyle : { backgroundColor: "transparent" }
+            filter === 'top' ? activeStyle : { backgroundColor: 'transparent' }
           }
           onClick={() => {
-            toggleFilter("top");
+            toggleFilter('top');
           }}
-          className="check-box"
+          className='check-box'
         >
           Top
         </span>
       </div>
 
-      {filter === "top" ? (
-        <div className="time-range">
+      {filter === 'top' ? (
+        <div className='time-range'>
           <span
-            className="check-box"
+            className='check-box'
             style={
-              timeRange === "week"
+              timeRange === 'week'
                 ? activeStyle
-                : { backgroundColor: "transparent" }
+                : { backgroundColor: 'transparent' }
             }
             onClick={() => {
-              toggleTimeRange("week");
+              toggleTimeRange('week');
             }}
           >
             Week
           </span>
           <span
-            className="check-box"
+            className='check-box'
             style={
-              timeRange === "month"
+              timeRange === 'month'
                 ? activeStyle
-                : { backgroundColor: "transparent" }
+                : { backgroundColor: 'transparent' }
             }
             onClick={() => {
-              toggleTimeRange("month");
+              toggleTimeRange('month');
             }}
           >
             Month
           </span>
           <span
-            className="check-box"
+            className='check-box'
             style={
-              timeRange === "year"
+              timeRange === 'year'
                 ? activeStyle
-                : { backgroundColor: "transparent" }
+                : { backgroundColor: 'transparent' }
             }
             onClick={() => {
-              toggleTimeRange("year");
+              toggleTimeRange('year');
             }}
           >
             Year
           </span>
           <span
-            className="check-box"
+            className='check-box'
             style={
-              timeRange === "all time"
+              timeRange === 'all time'
                 ? activeStyle
-                : { backgroundColor: "transparent" }
+                : { backgroundColor: 'transparent' }
             }
             onClick={() => {
-              toggleTimeRange("all time");
+              toggleTimeRange('all time');
             }}
           >
             All Time

@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import variables from "./variables";
+import { createGlobalStyle } from 'styled-components';
+import variables from './variables';
 
 const GlobalStyles = createGlobalStyle`
   ${variables}
@@ -115,10 +115,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     line-height: 1;
   }
-  ol,
-  ul {
-    list-style: none;
-  }
+  
   blockquote,
   q {
     quotes: none;

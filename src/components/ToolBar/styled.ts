@@ -1,7 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const ToolBarStyled = styled.div`
-  padding: var(--spacing-lg);
   display: flex;
   justify-content: space-between;
   align-items: center;

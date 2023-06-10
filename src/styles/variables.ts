@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
 const variables = css`
   :root {
@@ -29,6 +29,7 @@ const variables = css`
     --transition-quick: all 0.1s ease-in-out;
     --transition-base: all 0.25s ease-in-out;
     --border-radius-rounded: 0.1875rem;
+    --border-radius-base: 0.3125rem;
     --box-shadow-section: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
       rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     --box-shadow: rgba(105, 177, 218, 0.25) 0rem 0.125rem 0.5rem 0rem;
