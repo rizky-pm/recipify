@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
 const NavbarStyled = styled.nav`
   top: 0;
@@ -14,7 +14,7 @@ const NavbarStyled = styled.nav`
   border-bottom: 2px solid var(--color-primary);
 
   .logo {
-    font-family: 'Lobster', cursive;
+    font-family: "Lobster", cursive;
     color: var(--color-dark);
     font-size: var(--fz-xl);
     cursor: pointer;
@@ -31,6 +31,19 @@ const NavbarStyled = styled.nav`
     .divider {
       width: 1px;
       border-right: 1px solid #e1e1e1;
+    }
+  }
+
+  .user__icon {
+    padding: var(--spacing-xxs);
+    border: 1px solid var(--color-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-quick);
+
+    &:hover {
+      border: 1px solid rgb(26, 147, 111);
+      box-shadow: rgba(95, 179, 154, 0.5) 0px 0px 0px 3px;
     }
   }
 `;

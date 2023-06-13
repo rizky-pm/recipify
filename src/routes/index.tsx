@@ -1,41 +1,42 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from "react-router-dom";
 
-import PrivateRoute from './PrivateRoute';
-import MainPage from '../pages/Main';
-import RecipePage from '../pages/RecipePage';
-import SigninPage from '../pages/Signin';
-import SignupPage from '../pages/Signup';
+import PrivateRoute from "./PrivateRoute";
+import MainPage from "../pages/Main";
+import RecipePage from "../pages/RecipePage";
+import SigninPage from "../pages/Signin";
+import SignupPage from "../pages/Signup";
 
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import LoadingBoundary from "../components/LoadingBoundary";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: (
       <>
-        <Navbar />
-        <MainPage />
-        <Footer />
+        <LoadingBoundary>
+          <MainPage />
+        </LoadingBoundary>
       </>
     ),
   },
   {
-    path: '/recipe/:recipeId',
+    path: "/recipe/:recipeId",
     element: (
       <>
-        <Navbar />
-        <RecipePage />
-        <Footer />
+        <LoadingBoundary>
+          <RecipePage />
+        </LoadingBoundary>
       </>
     ),
   },
   {
-    path: '/signin',
+    path: "/signin",
     element: <SigninPage />,
   },
   {
-    path: '/signup',
+    path: "/signup",
     element: <SignupPage />,
   },
 ]);

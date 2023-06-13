@@ -1,31 +1,41 @@
-import { RuleObject, FormInstance } from 'antd/lib/form';
+import { RuleObject, FormInstance } from "antd/lib/form";
+import { User } from "firebase/auth";
 
-import { PASSWORD_REGEX } from '../constants';
+import { PASSWORD_REGEX } from "../constants";
 
 export const handleValidatePassword = (
   form: FormInstance,
   _: RuleObject,
   value: string,
-  fieldTarget: 'password' | 'confirmPassword'
+  fieldTarget: "password" | "confirmPassword"
 ): Promise<void> => {
   const isPasswordValid = PASSWORD_REGEX.test(value);
   const fieldTargetValue = form.getFieldValue(fieldTarget);
 
-  if (!isPasswordValid && value !== undefined && value !== '') {
+  if (!isPasswordValid && value !== undefined && value !== "") {
     return Promise.reject(
-      new Error('Password must contain at least 8 characters and 1 digit.')
+      new Error("Password must contain at least 8 characters and 1 digit.")
     );
   } else {
-    if (value !== '') {
+    if (value !== "") {
       form.setFields([{ name: fieldTarget, errors: [] }]);
     }
 
-    if (fieldTargetValue !== value && value !== '' && value !== undefined) {
-      return Promise.reject(new Error('Password not match.'));
+    if (fieldTargetValue !== value && value !== "" && value !== undefined) {
+      return Promise.reject(new Error("Password not match."));
     }
   }
 
   form.setFields([{ name: fieldTarget, errors: [] }]);
 
   return Promise.resolve();
+};
+
+export const getCurrentUserFromLS = () => {
+  const storedUserString = localStorage.getItem("user");
+  if (storedUserString) {
+    const storedUser: User = JSON.parse(storedUserString);
+
+    return storedUser;
+  }
 };

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 type Props = {
   img?: string;
@@ -57,6 +57,10 @@ const RecipePageStyled = styled.div<Props>`
     row-gap: var(--spacing-md);
   }
 
+  li {
+    line-height: 1.5;
+  }
+
   .recipe__meta {
     display: flex;
     align-items: center;
@@ -90,7 +94,7 @@ const RecipePageStyled = styled.div<Props>`
     display: flex;
     row-gap: var(--spacing-lg);
     flex-direction: column;
-    padding: 0 var(--spacing-xl);
+    padding: 0 var(--spacing-xl) var(--spacing-xl) var(--spacing-xl);
   }
 `;
 

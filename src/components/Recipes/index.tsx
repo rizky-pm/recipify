@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Level, Star } from '@icon-park/react';
-import dayjs from 'dayjs';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Level, Star } from "@icon-park/react";
+import dayjs from "dayjs";
 
-import { recipesData } from '../../data';
-import { RecipesStyled } from './styled';
+import { recipesData } from "../../data";
+import { RecipesStyled } from "./styled";
 
-type Filter = 'relevant' | 'latest' | 'top';
-type TimeRange = 'week' | 'month' | 'year' | 'all time';
+type Filter = "relevant" | "latest" | "top";
+type TimeRange = "week" | "month" | "year" | "all time";
 type Recipe = {
   id: number;
   name: string;
@@ -32,20 +32,16 @@ const Recipes: React.FC<Props> = ({ filter, timeRange }) => {
     navigate(`/recipe/${recipeId}`);
   };
 
-  console.log(filter, timeRange);
-
   useEffect(() => {
     const toBeSortedRecipes = recipesData;
-    if (filter === 'relevant' || filter === 'top') {
+    if (filter === "relevant" || filter === "top") {
       setRecipes(recipesData);
     }
 
-    if (filter === 'latest') {
+    if (filter === "latest") {
       const sortedRecipes = toBeSortedRecipes.sort(
         (a, b) => b.datePosted - a.datePosted
       );
-      console.log('recipes', recipesData);
-      console.log('soretd recipes >>>', recipesData);
 
       setRecipes(sortedRecipes);
     }
@@ -56,23 +52,23 @@ const Recipes: React.FC<Props> = ({ filter, timeRange }) => {
       {recipes.map((data) => (
         <div
           key={data.id}
-          className='card'
+          className="card"
           onClick={() => {
             handleNavigate(data.id);
           }}
         >
-          <img className='image' src={data.image} alt='' />
-          <div className='content'>
+          <img className="image" src={data.image} alt="" />
+          <div className="content">
             <h3>{data.name}</h3>
-            <div className='header'>
-              <span className='author'>
-                By <span className='author__name'>{data.author}</span>
+            <div className="header">
+              <span className="author">
+                By <span className="author__name">{data.author}</span>
               </span>
-              <span>{dayjs.unix(data.datePosted).format('DD MMM')}</span>
+              <span>{dayjs.unix(data.datePosted).format("DD MMM")}</span>
             </div>
-            <p className='description'>{data.description}</p>
+            <p className="description">{data.description}</p>
           </div>
-          <div className='footer'>
+          <div className="footer">
             <span>
               <Level />
               {data.difficulty}

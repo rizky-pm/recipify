@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Card } from 'antd';
+import styled from "styled-components";
+import { Card } from "antd";
 
 export const RecipesStyled = styled.div`
   display: flex;
@@ -16,13 +16,15 @@ export const RecipesStyled = styled.div`
   row-gap: var(--spacing-xxl); */
 
   .card {
+    flex-direction: column;
     position: relative;
     width: 23%;
-    height: 450px;
     /* border: 2px solid #6b6b6b; */
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transition: var(--transition-quick);
     cursor: pointer;
+    /* padding: 0 0 30% 0; */
+    display: flex;
 
     &:hover {
       transform: translate(0, -5px);
@@ -59,19 +61,17 @@ export const RecipesStyled = styled.div`
       }
 
       .description {
-        line-height: 1.25;
+        line-height: 1.5;
         color: #6b6b6b;
         font-weight: 300;
       }
     }
 
     .footer {
-      position: absolute;
+      margin-top: auto;
       display: flex;
       justify-content: space-between;
       width: 100%;
-      bottom: 0;
-      left: 0;
       padding: var(--spacing-sm);
 
       & > span {

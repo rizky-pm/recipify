@@ -1,6 +1,8 @@
 import { FC, Dispatch, SetStateAction } from "react";
 import { Modal, Form, Input } from "antd";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
+import { getFirebase } from "../../firebase";
 import { Btn } from "../../styles/GlobalStyled";
 import { handleValidatePassword } from "../../utilities";
 import { SigninValues } from "../../types";
@@ -12,14 +14,23 @@ type Props = {
 
 const SigninModal: FC<Props> = ({ showSigninModal, setShowSigninModal }) => {
   const [form] = Form.useForm();
+  const { auth } = getFirebase();
 
   const toggleModal = () => {
     form.resetFields();
     setShowSigninModal(!showSigninModal);
   };
 
-  const onFinish = (values: SigninValues) => {
-    console.log(values);
+  const onFinish = async (values: SigninValues) => {
+    const result = await signInWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    );
+
+    if (result.user) {
+      setShowSigninModal(false);
+    }
   };
 
   return (
