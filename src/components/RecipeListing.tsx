@@ -22,9 +22,11 @@ const RecipeListing = ({ meals }: Props) => {
 
   return (
     <MaxWidthWrapper className='mt-4'>
-      <small className='text-sm font-medium leading-none'>
-        {meals.length} recipe(s) found
-      </small>
+      <div className='text-center'>
+        <small className='text-sm font-medium leading-none'>
+          {meals.length} recipe(s) found
+        </small>
+      </div>
 
       <div className='flex flex-col space-y-4 mt-4'>
         {meals.map((meal) => (
