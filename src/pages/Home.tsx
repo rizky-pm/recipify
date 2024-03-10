@@ -6,6 +6,7 @@ import HeaderImage from '../assets/header-image.jpg';
 import RecipeListing from '@/components/RecipeListing';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { API_BASE_URL } from '@/constants';
+import CategoryListing from '@/components/CategoryListing';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
@@ -63,6 +64,7 @@ const Home = () => {
     }
   }, [byNameData, byIngredientData]);
 
+  // BOOKMARK : Remove same value of array of object
   const mergeMealData = (data1: any[], data2: any[]) => {
     const uniqueIds: Record<number, boolean> = {};
     const mergedData = [...data1, ...data2].filter(({ idMeal }: any) => {
@@ -104,6 +106,10 @@ const Home = () => {
             </div>
           </MaxWidthWrapper>
         </div>
+      </div>
+
+      <div>
+        <CategoryListing />
       </div>
       {byNameData && byIngredientData && <RecipeListing meals={mealsData} />}
     </>
