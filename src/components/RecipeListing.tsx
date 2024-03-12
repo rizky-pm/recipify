@@ -70,8 +70,15 @@ const RecipeListing = ({ meals, search }: Props) => {
           <div className='text-center mt-8'>
             {mealsData ? (
               <small className='text-base font-medium leading-none'>
-                {mealsData.length} recipe(s) found for{' '}
-                <span className='font-bold text-foreground'>"{search}"</span>
+                {mealsData.length} recipe(s) found{' '}
+                {search && (
+                  <>
+                    for{' '}
+                    <span className='font-bold text-foreground'>
+                      "{search}"
+                    </span>
+                  </>
+                )}
               </small>
             ) : null}
           </div>
