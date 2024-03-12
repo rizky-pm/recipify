@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { animateScroll as scroll } from 'react-scroll';
+import { animateScroll as scroll, scroller, Element } from 'react-scroll';
 import { useQuery } from '@tanstack/react-query';
 import { Input } from '@/components/ui/input';
 import HeaderImage from '../assets/header-image.jpg';
@@ -7,6 +7,7 @@ import RecipeListing from '@/components/RecipeListing';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { API_BASE_URL } from '@/constants';
 import CategoryListing from '@/components/CategoryListing';
+import CountryListing from '@/components/CountryListing';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
@@ -40,7 +41,10 @@ const Home = () => {
   };
 
   const scrollToResult = () => {
-    scroll.scrollTo(window.innerHeight * 1);
+    scroller.scrollTo('search-result', {
+      duration: 1000,
+      smooth: true,
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,10 +112,13 @@ const Home = () => {
         </div>
       </div>
 
-      <div>
-        <CategoryListing />
-      </div>
-      {byNameData && byIngredientData && <RecipeListing meals={mealsData} />}
+      <CategoryListing />
+      <CountryListing />
+      {byNameData && byIngredientData && (
+        <Element name='search-result'>
+          <RecipeListing meals={mealsData} search={search} />
+        </Element>
+      )}
     </>
   );
 };

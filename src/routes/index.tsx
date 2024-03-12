@@ -21,4 +21,8 @@ export const router = createBrowserRouter([
     path: '/category/:categoryName',
     element: <RecipeListing />,
   },
+  {
+    path: '/country/:countryName',
+    element: <RecipeListing />,
+  },
 ]);
