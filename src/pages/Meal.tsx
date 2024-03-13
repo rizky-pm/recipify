@@ -2,11 +2,13 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import TypograpyH1 from '@/components/TypograpyH1';
+import TypographyH1 from '@/components/TypographyH1';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import TypographyH3 from '@/components/TypographyH3';
 import { Link2, Youtube } from 'lucide-react';
 import { API_BASE_URL } from '@/constants';
+import TypographyH2 from '@/components/TypographyH2';
 
 const Meal = () => {
   const { mealId } = useParams();
@@ -17,10 +19,52 @@ const Meal = () => {
       fetch(`${API_BASE_URL}/lookup.php?i=${mealId}`).then((res) => res.json()),
   });
 
-  if (isLoading) {
+  if (!isLoading) {
     return (
-      <MaxWidthWrapper>
-        <h1 className='text-center'>Loading ...</h1>
+      <MaxWidthWrapper className='py-8'>
+        <div className='flex flex-col items-center'>
+          <Skeleton className='h-12 w-[250px]' />
+          <Skeleton className='h-80 w-full rounded-xl mt-4' />
+        </div>
+        <div className='flex gap-2 mt-4'>
+          <Skeleton className='h-5 w-16' />
+          <Skeleton className='h-5 w-16' />
+          <Skeleton className='h-5 w-16' />
+          <Skeleton className='h-5 w-16' />
+        </div>
+        <div className='flex flex-col space-y-2 mt-4'>
+          <Skeleton className='h-8 w-2/4' />
+          <Skeleton className='h-4 w-1/3' />
+          <Skeleton className='h-4 w-1/3' />
+          <Skeleton className='h-4 w-1/3' />
+          <Skeleton className='h-4 w-1/3' />
+          <Skeleton className='h-4 w-1/3' />
+          <Skeleton className='h-4 w-1/3' />
+        </div>
+
+        <div className='flex flex-col space-y-2 mt-4'>
+          <Skeleton className='h-8 w-2/4' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+
+          <br />
+
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+          <Skeleton className='h-4 w-full' />
+        </div>
+
+        <div className='flex mt-4 gap-4'>
+          <Skeleton className='h-6 w-20' />
+          <Skeleton className='h-6 w-20' />
+        </div>
       </MaxWidthWrapper>
     );
   }
@@ -39,8 +83,14 @@ const Meal = () => {
 
   return (
     <MaxWidthWrapper className='py-8'>
-      <TypograpyH1 className='text-center'>{meal.strMeal}</TypograpyH1>
-      <img src={meal.strMealThumb} alt={meal.strMeal} className='my-4' />
+      <div className='flex flex-col items-center'>
+        <TypographyH2 className='text-center'>{meal.strMeal}</TypographyH2>
+        <img
+          src={meal.strMealThumb}
+          alt={meal.strMeal}
+          className='my-4 rounded-xl h-80 aspect-square'
+        />
+      </div>
 
       <div className='flex flex-wrap gap-2 mb-4'>
         <Badge>Seafood</Badge>
