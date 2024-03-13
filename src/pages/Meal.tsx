@@ -2,13 +2,13 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import TypographyH1 from '@/components/TypographyH1';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import TypographyH3 from '@/components/TypographyH3';
 import { Link2, Youtube } from 'lucide-react';
 import { API_BASE_URL } from '@/constants';
 import TypographyH2 from '@/components/TypographyH2';
+import { useEffect } from 'react';
 
 const Meal = () => {
   const { mealId } = useParams();
@@ -17,7 +17,20 @@ const Meal = () => {
     queryKey: ['meal-detail'],
     queryFn: () =>
       fetch(`${API_BASE_URL}/lookup.php?i=${mealId}`).then((res) => res.json()),
+    gcTime: 0,
   });
+
+  const meal = data?.meals[0];
+
+  useEffect(() => {
+    if (meal) {
+      document.title = `Recipify | ${meal.strMeal}`;
+    }
+
+    return () => {
+      document.title = 'Recipify';
+    };
+  }, [meal]);
 
   if (isLoading) {
     return (
@@ -68,8 +81,6 @@ const Meal = () => {
       </MaxWidthWrapper>
     );
   }
-
-  const meal = data?.meals[0];
 
   const instruction = meal.strInstructions.split('\n');
   const tags = meal.strTags ? meal.strTags.split(',').filter(Boolean) : [];

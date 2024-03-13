@@ -56,6 +56,7 @@ const Home = () => {
     queryFn: () => fetchMealData('/random.php'),
     gcTime: 1000 * 60 * 60 * 24,
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const fetchMealData = async (urlSuffix: string) => {

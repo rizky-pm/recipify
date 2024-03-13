@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
@@ -21,6 +21,7 @@ interface Props {
 const RecipeListing = ({ meals, search }: Props) => {
   const [mealsData, setMealsData] = useState<any[]>([]);
 
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const { categoryName, countryName } = useParams();
 
@@ -46,6 +47,13 @@ const RecipeListing = ({ meals, search }: Props) => {
   const handleClick = (mealId: string) => {
     navigate(`/meal/${mealId}`);
   };
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      if (categoryName) document.title = `Recipify | ${categoryName}`;
+      else if (countryName) document.title = `Recipify | ${countryName}`;
+    }
+  }, []);
 
   useEffect(() => {
     if (meals) {
