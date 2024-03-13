@@ -19,7 +19,7 @@ const Meal = () => {
       fetch(`${API_BASE_URL}/lookup.php?i=${mealId}`).then((res) => res.json()),
   });
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <MaxWidthWrapper className='py-8'>
         <div className='flex flex-col items-center'>
