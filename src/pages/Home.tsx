@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { animateScroll as scroll, scroller, Element } from 'react-scroll';
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+
 import { Input } from '@/components/ui/input';
 import HeaderImage from '../assets/header-image.jpg';
 import RecipeListing from '@/components/RecipeListing';
@@ -8,10 +10,13 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { API_BASE_URL } from '@/constants';
 import CategoryListing from '@/components/CategoryListing';
 import CountryListing from '@/components/CountryListing';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import TypographyH3 from '@/components/TypographyH3';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
   const [mealsData, setMealsData] = useState([]);
+  const navigate = useNavigate();
 
   const {
     data: byNameData,
@@ -35,6 +40,15 @@ const Home = () => {
     enabled: false,
   });
 
+  const {
+    data: randomMeal,
+    isLoading: randomMealIsLoading,
+    isSuccess: randomMealIsSuccess,
+  } = useQuery({
+    queryKey: ['random-meal'],
+    queryFn: () => fetchMealData('/random.php'),
+  });
+
   const fetchMealData = async (urlSuffix: string) => {
     const response = await fetch(`${API_BASE_URL}${urlSuffix}`);
     return response.json();
@@ -56,6 +70,10 @@ const Home = () => {
       byNameRefetch();
       byIngredientRefetch();
     }
+  };
+
+  const handleClick = (mealId: string) => {
+    navigate(`/meal/${mealId}`);
   };
 
   useEffect(() => {
@@ -112,13 +130,40 @@ const Home = () => {
         </div>
       </div>
 
-      <CategoryListing />
-      <CountryListing />
-      {byNameData && byIngredientData && (
-        <Element name='search-result'>
-          <RecipeListing meals={mealsData} search={search} />
-        </Element>
-      )}
+      <div className='flex flex-col space-y-8 my-8'>
+        <MaxWidthWrapper className='px-4'>
+          <TypographyH3 className='mb-4'>Surprise Recipe</TypographyH3>
+          {randomMeal ? (
+            <Card
+              key={randomMeal.meals[0].idMeal}
+              onClick={() => handleClick(randomMeal.meals[0].idMeal)}
+              className='cursor-pointer card-shadow'
+            >
+              <CardHeader>
+                <CardTitle className='text-2xl truncate'>
+                  {randomMeal.meals[0].strMeal}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className='flex justify-center'>
+                <img
+                  src={randomMeal.meals[0].strMealThumb}
+                  alt={`Picture of ${randomMeal.meals[0].strMeal}`}
+                  className='rounded-md'
+                />
+              </CardContent>
+            </Card>
+          ) : null}
+        </MaxWidthWrapper>
+
+        <CategoryListing />
+        <CountryListing />
+
+        {byNameData && byIngredientData && (
+          <Element name='search-result'>
+            <RecipeListing meals={mealsData} search={search} />
+          </Element>
+        )}
+      </div>
     </>
   );
 };

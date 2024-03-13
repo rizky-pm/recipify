@@ -16,7 +16,7 @@ const CategoryListing = () => {
 
   return isSuccess && data.categories ? (
     <MaxWidthWrapper className='px-4 mt-4'>
-      <TypographyH3>Categories</TypographyH3>
+      <TypographyH3 className='mb-4'>Categories</TypographyH3>
       <ScrollArea className='w-96 whitespace-nowrap rounded-md border bg-primary/75'>
         <div className='flex w-max space-x-4 px-4 py-6'>
           <div

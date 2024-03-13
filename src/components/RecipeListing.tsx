@@ -84,12 +84,12 @@ const RecipeListing = ({ meals, search }: Props) => {
           </div>
 
           {mealsData.length > 0 ? (
-            <div className='flex flex-col space-y-4 mt-4'>
+            <div className='flex flex-col space-y-8 mt-4'>
               {mealsData.map((meal) => (
                 <Card
                   key={meal.idMeal}
                   onClick={() => handleClick(meal.idMeal)}
-                  className='cursor-pointer'
+                  className='cursor-pointer card-shadow'
                 >
                   <CardHeader>
                     <CardTitle className='text-xl'>{meal.strMeal}</CardTitle>

@@ -12,7 +12,7 @@ const CountryListing = () => {
 
   return (
     <MaxWidthWrapper className='px-4 my-4'>
-      <TypographyH3>Countries</TypographyH3>
+      <TypographyH3 className='mb-4'>Countries</TypographyH3>
 
       <ScrollArea className='w-96 whitespace-nowrap rounded-md border bg-primary/75'>
         <div className='flex w-max space-x-4 px-4 py-6'>
