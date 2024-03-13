@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { animateScroll as scroll, scroller, Element } from 'react-scroll';
+import { scroller, Element } from 'react-scroll';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,8 +10,15 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { API_BASE_URL } from '@/constants';
 import CategoryListing from '@/components/CategoryListing';
 import CountryListing from '@/components/CountryListing';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import TypographyH3 from '@/components/TypographyH3';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
@@ -133,24 +140,30 @@ const Home = () => {
       <div className='flex flex-col space-y-8 my-8'>
         <MaxWidthWrapper className='px-4'>
           <TypographyH3 className='mb-4'>Surprise Recipe</TypographyH3>
-          {randomMeal ? (
+
+          {randomMealIsLoading ? (
+            <>
+              <Skeleton className='h-8 w-[250px] mb-4' />
+              <Skeleton className='h-80 w-full rounded-xl' />
+            </>
+          ) : randomMeal ? (
             <Card
               key={randomMeal.meals[0].idMeal}
               onClick={() => handleClick(randomMeal.meals[0].idMeal)}
               className='cursor-pointer card-shadow'
             >
-              <CardHeader>
-                <CardTitle className='text-2xl truncate'>
-                  {randomMeal.meals[0].strMeal}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className='flex justify-center'>
+              <CardContent className='p-0'>
                 <img
                   src={randomMeal.meals[0].strMealThumb}
                   alt={`Picture of ${randomMeal.meals[0].strMeal}`}
-                  className='rounded-md'
+                  className='rounded-tl-md rounded-tr-md w-full h-full aspect-square'
                 />
               </CardContent>
+              <CardFooter className='p-4'>
+                <CardTitle className='text-xl truncate'>
+                  {randomMeal.meals[0].strMeal}
+                </CardTitle>
+              </CardFooter>
             </Card>
           ) : null}
         </MaxWidthWrapper>
