@@ -139,7 +139,7 @@ const Home = () => {
 
       <div className='flex flex-col space-y-8 my-8'>
         <MaxWidthWrapper className='px-4'>
-          <TypographyH3 className='mb-4'>Surprise Recipe</TypographyH3>
+          <TypographyH3 className='mb-4'>Our Pick</TypographyH3>
 
           {randomMealIsLoading ? (
             <>
