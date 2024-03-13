@@ -1,11 +1,29 @@
+import { useQuery } from '@tanstack/react-query';
+
 import MaxWidthWrapper from './MaxWidthWrapper';
 import TypographyH3 from './TypographyH3';
 import { ScrollArea, ScrollBar } from './ui/scroll-area';
 import { COUNTRIES } from '@/constants';
 import { useNavigate } from 'react-router-dom';
+import { fetchData } from '@/lib/utils';
+import { Skeleton } from './ui/skeleton';
 
 const CountryListing = () => {
   const navigate = useNavigate();
+
+  const { isLoading } = useQuery({
+    queryKey: ['country-list'],
+    queryFn: () => fetchData(`/filter.php?a=list`),
+  });
+
+  if (isLoading) {
+    return (
+      <MaxWidthWrapper className='mt-4 flex flex-col'>
+        <Skeleton className='h-8 w-1/3 mb-4' />
+        <Skeleton className='h-60 w-full rounded' />
+      </MaxWidthWrapper>
+    );
+  }
 
   return (
     <MaxWidthWrapper className='my-4'>

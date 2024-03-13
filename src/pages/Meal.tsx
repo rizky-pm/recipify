@@ -1,6 +1,7 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { animateScroll as scroll, Element } from 'react-scroll';
 
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
@@ -31,6 +32,13 @@ const Meal = () => {
       document.title = 'Recipify';
     };
   }, [meal]);
+
+  useEffect(() => {
+    scroll.scrollToTop({
+      duration: 0,
+      smooth: false,
+    });
+  }, []);
 
   if (isLoading) {
     return (

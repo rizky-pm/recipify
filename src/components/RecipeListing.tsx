@@ -1,5 +1,6 @@
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { animateScroll as scroll } from 'react-scroll';
 
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -50,6 +51,8 @@ const RecipeListing = ({ meals, search }: Props) => {
 
   useEffect(() => {
     if (pathname !== '/') {
+      scroll.scrollToTop();
+
       if (categoryName) document.title = `Recipify | ${categoryName}`;
       else if (countryName) document.title = `Recipify | ${countryName}`;
     }
