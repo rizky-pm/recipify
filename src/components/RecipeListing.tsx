@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { fetchData } from '@/lib/utils';
 import { useEffect, useState } from 'react';
-import TypograpyH1 from './TypograpyH1';
+import { Skeleton } from './ui/skeleton';
 
 interface Meal {
   idMeal: string;
@@ -61,54 +61,56 @@ const RecipeListing = ({ meals, search }: Props) => {
     }
   }, [mealsDataFromQuery]);
 
-  return (
-    <MaxWidthWrapper className='mt-4'>
-      {isLoading ? (
-        <TypograpyH1>Loading ...</TypograpyH1>
-      ) : (
-        <>
-          <div className='text-center mt-8'>
-            {mealsData ? (
-              <small className='text-base font-medium leading-none'>
-                {mealsData.length} recipe(s) found{' '}
-                {search && (
-                  <>
-                    for{' '}
-                    <span className='font-bold text-foreground'>
-                      "{search}"
-                    </span>
-                  </>
-                )}
-              </small>
-            ) : null}
-          </div>
+  if (isLoading) {
+    return (
+      <MaxWidthWrapper className='mt-4 flex flex-col items-center'>
+        <Skeleton className='h-6 w-2/3' />
+        <Skeleton className='h-96 w-full rounded-xl mt-4' />
+        <Skeleton className='h-96 w-full rounded-xl mt-8' />
+        <Skeleton className='h-96 w-full rounded-xl mt-8' />
+      </MaxWidthWrapper>
+    );
+  }
 
-          {mealsData.length > 0 ? (
-            <div className='flex flex-col space-y-8 mt-4'>
-              {mealsData.map((meal) => (
-                <Card
-                  key={meal.idMeal}
-                  onClick={() => handleClick(meal.idMeal)}
-                  className='cursor-pointer card-shadow'
-                >
-                  <CardHeader>
-                    <CardTitle className='text-xl'>{meal.strMeal}</CardTitle>
-                  </CardHeader>
-                  <CardContent className='flex justify-center'>
-                    <img
-                      src={meal.strMealThumb}
-                      alt={`Picture of ${meal.strMeal}`}
-                      className='rounded-md'
-                    />
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : null}
-        </>
-      )}
+  return mealsData.length ? (
+    <MaxWidthWrapper className='mt-4'>
+      <div className='text-center'>
+        <small className='text-base font-medium leading-none'>
+          {mealsData.length} recipe(s) found{' '}
+          {search && (
+            <>
+              for <span className='font-bold text-foreground'>"{search}"</span>
+            </>
+          )}
+        </small>
+      </div>
+
+      {mealsData.length > 0 ? (
+        <div className='flex flex-col space-y-8 mt-4'>
+          {mealsData.map((meal) => (
+            <Card
+              key={meal.idMeal}
+              onClick={() => handleClick(meal.idMeal)}
+              className='cursor-pointer card-shadow'
+            >
+              <CardContent className='p-0'>
+                <img
+                  src={meal.strMealThumb}
+                  alt={`Picture of ${meal.strMeal}`}
+                  className='rounded-tl-md rounded-tr-md w-full h-full aspect-square'
+                />
+              </CardContent>
+              <CardFooter className='p-4'>
+                <CardTitle className='text-xl truncate'>
+                  {meal.strMeal}
+                </CardTitle>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      ) : null}
     </MaxWidthWrapper>
-  );
+  ) : null;
 };
 
 export default RecipeListing;

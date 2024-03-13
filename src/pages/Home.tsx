@@ -54,6 +54,8 @@ const Home = () => {
   } = useQuery({
     queryKey: ['random-meal'],
     queryFn: () => fetchMealData('/random.php'),
+    gcTime: 1000 * 60 * 60 * 24,
+    refetchOnWindowFocus: false,
   });
 
   const fetchMealData = async (urlSuffix: string) => {
@@ -138,33 +140,34 @@ const Home = () => {
       </div>
 
       <div className='flex flex-col space-y-8 my-8'>
-        <MaxWidthWrapper className='px-4'>
-          <TypographyH3 className='mb-4'>Our Pick</TypographyH3>
-
+        <MaxWidthWrapper>
           {randomMealIsLoading ? (
             <>
               <Skeleton className='h-8 w-[250px] mb-4' />
-              <Skeleton className='h-80 w-full rounded-xl' />
+              <Skeleton className='h-96 w-full rounded-xl' />
             </>
           ) : randomMeal ? (
-            <Card
-              key={randomMeal.meals[0].idMeal}
-              onClick={() => handleClick(randomMeal.meals[0].idMeal)}
-              className='cursor-pointer card-shadow'
-            >
-              <CardContent className='p-0'>
-                <img
-                  src={randomMeal.meals[0].strMealThumb}
-                  alt={`Picture of ${randomMeal.meals[0].strMeal}`}
-                  className='rounded-tl-md rounded-tr-md w-full h-full aspect-square'
-                />
-              </CardContent>
-              <CardFooter className='p-4'>
-                <CardTitle className='text-xl truncate'>
-                  {randomMeal.meals[0].strMeal}
-                </CardTitle>
-              </CardFooter>
-            </Card>
+            <>
+              <TypographyH3 className='mb-4'>Our Pick</TypographyH3>
+              <Card
+                key={randomMeal.meals[0].idMeal}
+                onClick={() => handleClick(randomMeal.meals[0].idMeal)}
+                className='cursor-pointer card-shadow'
+              >
+                <CardContent className='p-0'>
+                  <img
+                    src={randomMeal.meals[0].strMealThumb}
+                    alt={`Picture of ${randomMeal.meals[0].strMeal}`}
+                    className='rounded-tl-md rounded-tr-md w-full h-full aspect-square'
+                  />
+                </CardContent>
+                <CardFooter className='p-4'>
+                  <CardTitle className='text-xl truncate'>
+                    {randomMeal.meals[0].strMeal}
+                  </CardTitle>
+                </CardFooter>
+              </Card>
+            </>
           ) : null}
         </MaxWidthWrapper>
 

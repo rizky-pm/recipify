@@ -1,9 +1,6 @@
-import React from 'react';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import TypographyH3 from './TypographyH3';
 import { ScrollArea, ScrollBar } from './ui/scroll-area';
-import { useQuery } from '@tanstack/react-query';
-import { fetchData } from '@/lib/utils';
 import { COUNTRIES } from '@/constants';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +8,7 @@ const CountryListing = () => {
   const navigate = useNavigate();
 
   return (
-    <MaxWidthWrapper className='px-4 my-4'>
+    <MaxWidthWrapper className='my-4'>
       <TypographyH3 className='mb-4'>Countries</TypographyH3>
 
       <ScrollArea className='w-96 whitespace-nowrap rounded-md border bg-primary/75'>

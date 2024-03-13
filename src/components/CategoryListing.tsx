@@ -5,17 +5,27 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { fetchData } from '@/lib/utils';
 import TypographyH3 from './TypographyH3';
+import { Skeleton } from './ui/skeleton';
 
 const CategoryListing = () => {
   const navigate = useNavigate();
 
-  const { data, isSuccess } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['category-listing'],
     queryFn: () => fetchData('/categories.php'),
   });
 
-  return isSuccess && data.categories ? (
-    <MaxWidthWrapper className='px-4 mt-4'>
+  if (isLoading) {
+    return (
+      <MaxWidthWrapper className='mt-4 flex flex-col'>
+        <Skeleton className='h-8 w-1/3 mb-4' />
+        <Skeleton className='h-60 w-full rounded' />
+      </MaxWidthWrapper>
+    );
+  }
+
+  return data ? (
+    <MaxWidthWrapper className='mt-4'>
       <TypographyH3 className='mb-4'>Categories</TypographyH3>
       <ScrollArea className='w-96 whitespace-nowrap rounded-md border bg-primary/75'>
         <div className='flex w-max space-x-4 px-4 py-6'>
@@ -51,9 +61,7 @@ const CategoryListing = () => {
         <ScrollBar orientation='horizontal' />
       </ScrollArea>
     </MaxWidthWrapper>
-  ) : (
-    <h1>Loading ...</h1>
-  );
+  ) : null;
 };
 
 export default CategoryListing;
