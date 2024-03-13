@@ -7,22 +7,17 @@ import { Input } from '@/components/ui/input';
 import HeaderImage from '../assets/header-image.jpg';
 import RecipeListing from '@/components/RecipeListing';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
-import { API_BASE_URL } from '@/constants';
 import CategoryListing from '@/components/CategoryListing';
 import CountryListing from '@/components/CountryListing';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import TypographyH3 from '@/components/TypographyH3';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Meal } from '@/types';
+import { fetchData } from '@/lib/utils';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
-  const [mealsData, setMealsData] = useState([]);
+  const [mealsData, setMealsData] = useState<Meal[]>([]);
   const navigate = useNavigate();
 
   const {
@@ -32,7 +27,7 @@ const Home = () => {
     isLoading: byNameIsLoading,
   } = useQuery({
     queryKey: ['meal-by-name'],
-    queryFn: () => fetchMealData(`/search.php?s=${search}`),
+    queryFn: () => fetchData(`/search.php?s=${search}`),
     enabled: false,
   });
 
@@ -43,26 +38,17 @@ const Home = () => {
     isLoading: byIngredientIsLoading,
   } = useQuery({
     queryKey: ['meal-by-ingredient'],
-    queryFn: () => fetchMealData(`/filter.php?i=${search}`),
+    queryFn: () => fetchData(`/filter.php?i=${search}`),
     enabled: false,
   });
 
-  const {
-    data: randomMeal,
-    isLoading: randomMealIsLoading,
-    isSuccess: randomMealIsSuccess,
-  } = useQuery({
+  const { data: randomMeal, isLoading: randomMealIsLoading } = useQuery({
     queryKey: ['random-meal'],
-    queryFn: () => fetchMealData('/random.php'),
+    queryFn: () => fetchData('/random.php'),
     gcTime: 1000 * 60 * 60 * 24,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
-
-  const fetchMealData = async (urlSuffix: string) => {
-    const response = await fetch(`${API_BASE_URL}${urlSuffix}`);
-    return response.json();
-  };
 
   const scrollToResult = () => {
     scroller.scrollTo('search-result', {
@@ -97,9 +83,9 @@ const Home = () => {
   }, [byNameData, byIngredientData]);
 
   // BOOKMARK : Remove same value of array of object
-  const mergeMealData = (data1: any[], data2: any[]) => {
-    const uniqueIds: Record<number, boolean> = {};
-    const mergedData = [...data1, ...data2].filter(({ idMeal }: any) => {
+  const mergeMealData = (data1: Meal[], data2: Meal[]) => {
+    const uniqueIds: Record<string, boolean> = {};
+    const mergedData = [...data1, ...data2].filter(({ idMeal }) => {
       if (!uniqueIds[idMeal]) {
         uniqueIds[idMeal] = true;
         return true;
@@ -123,10 +109,12 @@ const Home = () => {
         />
         <div className='absolute top-1/2 left-0 -translate-y-1/2 w-full'>
           <MaxWidthWrapper className='text-center'>
-            <h1 className='scroll-m-20 pb-2 text-6xl font-semibold tracking-tight first:mt-0 text-background text-center'>
-              Recipify
-            </h1>
-            <div className='flex items-center gap-2'>
+            <div>
+              <h1 className='text-6xl font-bold tracking-widest first:mt-0 text-background text-center uppercase text-wrap'>
+                Recipify
+              </h1>
+            </div>
+            <div className='flex items-center gap-2 mt-8'>
               <Input
                 type='text'
                 placeholder='Search by ingredient or name'

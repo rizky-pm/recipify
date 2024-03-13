@@ -1,7 +1,7 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { animateScroll as scroll, Element } from 'react-scroll';
+import { animateScroll as scroll } from 'react-scroll';
 
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';

@@ -20,7 +20,7 @@ interface Props {
 }
 
 const RecipeListing = ({ meals, search }: Props) => {
-  const [mealsData, setMealsData] = useState<any[]>([]);
+  const [mealsData, setMealsData] = useState<Meal[]>([]);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();

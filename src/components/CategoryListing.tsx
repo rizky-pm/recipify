@@ -6,6 +6,7 @@ import MaxWidthWrapper from './MaxWidthWrapper';
 import { fetchData } from '@/lib/utils';
 import TypographyH3 from './TypographyH3';
 import { Skeleton } from './ui/skeleton';
+import { Category } from '@/types';
 
 const CategoryListing = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const CategoryListing = () => {
               Indulge in diverse culinary categories
             </p>
           </div>
-          {data.categories.map((category) => (
+          {data.categories.map((category: Category) => (
             <figure
               key={category.idCategory}
               className='shrink-0 p-4 rounded bg-background'
