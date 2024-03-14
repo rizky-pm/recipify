@@ -60,3 +60,8 @@ export interface Category {
   strCategoryThumb: string;
   strCategoryDescription: string;
 }
+
+export interface Country {
+  strArea: string;
+  flag: string;
+}

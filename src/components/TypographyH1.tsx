@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
 
-const TypograpyH1 = ({
+const TypographyH1 = ({
   className,
   children,
 }: {
@@ -20,4 +20,4 @@ const TypograpyH1 = ({
   );
 };
 
-export default TypograpyH1;
+export default TypographyH1;

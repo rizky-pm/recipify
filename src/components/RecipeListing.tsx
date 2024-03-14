@@ -1,6 +1,7 @@
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { animateScroll as scroll } from 'react-scroll';
+import { useMediaQuery } from 'react-responsive';
 
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -19,12 +20,16 @@ interface Props {
   search?: string;
 }
 
-const RecipeListing = ({ meals, search }: Props) => {
+const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
   const [mealsData, setMealsData] = useState<Meal[]>([]);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { categoryName, countryName } = useParams();
+  const { categoryName, countryName } = useParams<{
+    categoryName?: string;
+    countryName?: string;
+  }>();
+  const isDesktopScreen = useMediaQuery({ minWidth: 1084 });
 
   const {
     data: mealsDataFromQuery,
@@ -74,19 +79,24 @@ const RecipeListing = ({ meals, search }: Props) => {
 
   if (isLoading) {
     return (
-      <MaxWidthWrapper className='mt-4 flex flex-col items-center'>
-        <Skeleton className='h-6 w-2/3' />
-        <Skeleton className='h-96 w-full rounded-xl mt-4' />
-        <Skeleton className='h-96 w-full rounded-xl mt-8' />
-        <Skeleton className='h-96 w-full rounded-xl mt-8' />
+      <MaxWidthWrapper className='my-4 flex flex-col items-center sm:items-start'>
+        <Skeleton className='h-6 w-1/3' />
+        <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 lg:grid-cols-5 my-4'>
+          {Array.from({ length: isDesktopScreen ? 10 : 6 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              className='h-96 sm:h-60 w-full sm:w-48 rounded-md lg:h-64 lg:w-52'
+            />
+          ))}
+        </div>
       </MaxWidthWrapper>
     );
   }
 
   return mealsData.length ? (
-    <MaxWidthWrapper className='mt-4'>
-      <div className='text-center'>
-        <small className='text-base font-medium leading-none'>
+    <MaxWidthWrapper className='my-4'>
+      <div className='text-center sm:text-left'>
+        <small className='text-base sm:text-xl font-medium leading-none'>
           {mealsData.length} recipe(s) found{' '}
           {search && (
             <>
@@ -97,22 +107,22 @@ const RecipeListing = ({ meals, search }: Props) => {
       </div>
 
       {mealsData.length > 0 ? (
-        <div className='flex flex-col space-y-8 mt-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4'>
           {mealsData.map((meal) => (
             <Card
               key={meal.idMeal}
               onClick={() => handleClick(meal.idMeal)}
-              className='cursor-pointer card-shadow'
+              className='cursor-pointer card-shadow lg:w-54'
             >
               <CardContent className='p-0'>
                 <img
                   src={meal.strMealThumb}
                   alt={`Picture of ${meal.strMeal}`}
-                  className='rounded-tl-md rounded-tr-md w-full h-full aspect-square'
+                  className='rounded-tl-md rounded-tr-md w-full sm:w-48 lg:w-full h-full aspect-square object-cover'
                 />
               </CardContent>
               <CardFooter className='p-4'>
-                <CardTitle className='text-xl truncate'>
+                <CardTitle className='text-base sm:text-sm truncate'>
                   {meal.strMeal}
                 </CardTitle>
               </CardFooter>
