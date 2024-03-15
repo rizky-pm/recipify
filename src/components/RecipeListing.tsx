@@ -8,6 +8,7 @@ import MaxWidthWrapper from './MaxWidthWrapper';
 import { fetchData } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import { Skeleton } from './ui/skeleton';
+import TypographyH1 from './TypographyH1';
 
 interface Meal {
   idMeal: string;
@@ -30,7 +31,6 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
     countryName?: string;
   }>();
   const isSmallDesktopScreen = useMediaQuery({ minWidth: 1084 });
-  const isLargeDesktopScreen = useMediaQuery({ minWidth: 1280 });
 
   const {
     data: mealsDataFromQuery,
@@ -80,14 +80,15 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
 
   if (isLoading) {
     return (
-      <MaxWidthWrapper className='my-4 flex flex-col items-center sm:items-start'>
-        <Skeleton className='h-6 w-1/3' />
+      <MaxWidthWrapper className='mb-4 flex flex-col'>
+        <Skeleton className='h-10 w-2/3 sm:w-1/3 xl:w-1/4 mt-4 self-center sm:self-start' />
+        <Skeleton className='h-6 w-3/4 sm:w-2/4 xl:w-1/6  mt-2 self-center sm:self-start' />
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 lg:grid-cols-5 my-4'>
-          {Array.from({ length: isSmallDesktopScreen ? 10 : 6 }).map(
+          {Array.from({ length: isSmallDesktopScreen ? 10 : 9 }).map(
             (_, index) => (
               <Skeleton
                 key={index}
-                className='h-96 sm:h-60 w-full sm:w-48 rounded-md lg:h-64 lg:w-52 xl:w-64 xl:h-80'
+                className='h-96 sm:h-60 w-full sm:w-48 rounded-md lg:h-64 lg:w-52 xl:w-56 xl:h-72'
               />
             )
           )}
@@ -99,6 +100,7 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
   return mealsData.length ? (
     <MaxWidthWrapper className='my-4'>
       <div className='text-center sm:text-left'>
+        <TypographyH1>{countryName || categoryName}</TypographyH1>
         <small className='text-base sm:text-xl font-medium leading-none'>
           {mealsData.length} recipe(s) found{' '}
           {search && (

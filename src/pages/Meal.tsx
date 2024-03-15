@@ -46,7 +46,7 @@ const Meal = () => {
       <MaxWidthWrapper className='py-8'>
         <div className='flex flex-col items-center sm:items-start'>
           <Skeleton className='h-12 w-[250px] lg:w-1/3' />
-          <Skeleton className='h-80 w-full rounded-xl mt-4' />
+          <Skeleton className='h-80 lg:h-96 w-full rounded-xl mt-4' />
         </div>
         <div className='flex gap-2 mt-4'>
           {Array.from({ length: 4 }, (_, index) => (
@@ -91,11 +91,13 @@ const Meal = () => {
   return (
     <MaxWidthWrapper className='py-8'>
       <div className='flex flex-col'>
-        <TypographyH1>{meal.strMeal}</TypographyH1>
+        <TypographyH1 className='text-center sm:text-left'>
+          {meal.strMeal}
+        </TypographyH1>
         <img
           src={meal.strMealThumb}
           alt={meal.strMeal}
-          className='my-4 rounded-md h-80 sm:w-full aspect-square sm:aspect-video sm:object-cover'
+          className='my-4 rounded-md h-80 lg:h-96 sm:w-full aspect-square sm:aspect-video sm:object-cover'
         />
       </div>
 
