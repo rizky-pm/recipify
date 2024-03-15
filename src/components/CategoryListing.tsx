@@ -35,7 +35,7 @@ const CategoryListing = () => {
     <MaxWidthWrapper className='mt-4'>
       <TypographyH3 className='mb-4 sm:hidden'>Categories</TypographyH3>
       <TypographyH2 className='mb-4 hidden sm:block'>Categories</TypographyH2>
-      <ScrollArea className='w-96 sm:w-full whitespace-nowrap rounded-md bg-primary/75 card-shadow'>
+      <ScrollArea className='w-full whitespace-nowrap rounded-md bg-primary/75 card-shadow'>
         <div className='flex w-max space-x-4 sm:space-x-6 px-4 sm:px-6 py-6 sm:py-8'>
           <div
             id='section'
