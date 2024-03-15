@@ -44,21 +44,23 @@ const Meal = () => {
   if (isLoading) {
     return (
       <MaxWidthWrapper className='py-8'>
-        <div className='flex flex-col items-center'>
-          <Skeleton className='h-12 w-[250px]' />
+        <div className='flex flex-col items-center sm:items-start'>
+          <Skeleton className='h-12 w-[250px] lg:w-1/3' />
           <Skeleton className='h-80 w-full rounded-xl mt-4' />
         </div>
         <div className='flex gap-2 mt-4'>
           {Array.from({ length: 4 }, (_, index) => (
-            <Skeleton key={index} className='h-5 w-16' />
+            <Skeleton key={index} className='h-8 w-20 rounded-full' />
           ))}
         </div>
         <div className='flex flex-col space-y-2 mt-4'>
+          <Skeleton className='h-6 w-2/4 sm:w-1/3 lg:w-1/6' />
           {Array.from({ length: 7 }, (_, index) => (
-            <Skeleton key={index} className='h-4 w-1/3' />
+            <Skeleton key={index} className='h-4 w-1/4 lg:w-1/12' />
           ))}
         </div>
-        <div className='flex flex-col space-y-2 mt-4'>
+        <div className='flex flex-col space-y-2 mt-8'>
+          <Skeleton className='h-6 w-2/4 sm:w-1/3 lg:w-1/6' />
           {Array.from({ length: 12 }, (_, index) => (
             <Skeleton key={index} className='h-4 w-full' />
           ))}
@@ -88,9 +90,8 @@ const Meal = () => {
 
   return (
     <MaxWidthWrapper className='py-8'>
-      <div className='flex flex-col items-center sm:items-start'>
-        <TypographyH2 className='sm:hidden'>{meal.strMeal}</TypographyH2>
-        <TypographyH1 className='hidden sm:block'>{meal.strMeal}</TypographyH1>
+      <div className='flex flex-col'>
+        <TypographyH1>{meal.strMeal}</TypographyH1>
         <img
           src={meal.strMealThumb}
           alt={meal.strMeal}

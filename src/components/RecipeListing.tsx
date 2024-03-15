@@ -29,7 +29,8 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
     categoryName?: string;
     countryName?: string;
   }>();
-  const isDesktopScreen = useMediaQuery({ minWidth: 1084 });
+  const isSmallDesktopScreen = useMediaQuery({ minWidth: 1084 });
+  const isLargeDesktopScreen = useMediaQuery({ minWidth: 1280 });
 
   const {
     data: mealsDataFromQuery,
@@ -82,12 +83,14 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
       <MaxWidthWrapper className='my-4 flex flex-col items-center sm:items-start'>
         <Skeleton className='h-6 w-1/3' />
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 lg:grid-cols-5 my-4'>
-          {Array.from({ length: isDesktopScreen ? 10 : 6 }).map((_, index) => (
-            <Skeleton
-              key={index}
-              className='h-96 sm:h-60 w-full sm:w-48 rounded-md lg:h-64 lg:w-52'
-            />
-          ))}
+          {Array.from({ length: isSmallDesktopScreen ? 10 : 6 }).map(
+            (_, index) => (
+              <Skeleton
+                key={index}
+                className='h-96 sm:h-60 w-full sm:w-48 rounded-md lg:h-64 lg:w-52 xl:w-64 xl:h-80'
+              />
+            )
+          )}
         </div>
       </MaxWidthWrapper>
     );
