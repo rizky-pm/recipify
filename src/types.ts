@@ -1,4 +1,4 @@
-export interface Meal {
+export interface MealTypes {
   idMeal: string;
   strMeal: string;
   strDrinkAlternate: string | null;
@@ -54,14 +54,14 @@ export interface Meal {
   dateModified: Date | null;
 }
 
-export interface Category {
+export interface CategoryTypes {
   idCategory: string;
   strCategory: string;
   strCategoryThumb: string;
   strCategoryDescription: string;
 }
 
-export interface Country {
+export interface CountryTypes {
   strArea: string;
   flag: string;
 }

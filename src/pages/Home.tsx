@@ -16,13 +16,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import TypographyH2 from '@/components/TypographyH2';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Meal } from '@/types';
+import { MealTypes } from '@/types';
 import { fetchData } from '@/lib/utils';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
-  const [mealsData, setMealsData] = useState<Meal[]>([]);
-  const [randomMealsData, setRandomMealsData] = useState<Meal[]>([]);
+  const [mealsData, setMealsData] = useState<MealTypes[]>([]);
+  const [randomMealsData, setRandomMealsData] = useState<MealTypes[]>([]);
   const navigate = useNavigate();
   const isMobileScreen = useMediaQuery({ maxWidth: 640 });
 
@@ -96,7 +96,7 @@ const Home = () => {
     }
   }, [byNameData, byIngredientData]);
 
-  const mergeMealData = (data1: Meal[], data2: Meal[]) => {
+  const mergeMealData = (data1: MealTypes[], data2: MealTypes[]) => {
     const uniqueIds: Record<string, boolean> = {};
     const mergedData = [...data1, ...data2].filter(({ idMeal }) => {
       if (!uniqueIds[idMeal]) {
@@ -167,7 +167,7 @@ const Home = () => {
               </TypographyH2>
 
               <div className='flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12'>
-                {randomMealsData?.map((meal: Meal) => (
+                {randomMealsData?.map((meal: MealTypes) => (
                   <Card
                     key={meal.idMeal}
                     onClick={() =>

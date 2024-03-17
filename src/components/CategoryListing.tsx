@@ -7,10 +7,10 @@ import { fetchData } from '@/lib/utils';
 import TypographyH2 from './TypographyH2';
 import TypographyH3 from './TypographyH3';
 import { Skeleton } from './ui/skeleton';
-import { Category } from '@/types';
+import { CategoryTypes } from '@/types';
 
 interface CategoryCardProps {
-  category: Category;
+  category: CategoryTypes;
   navigate: (path: string) => void;
 }
 
@@ -45,7 +45,7 @@ const CategoryListing = () => {
               Indulge in diverse culinary categories
             </p>
           </div>
-          {data.categories.map((category: Category) => (
+          {data.categories.map((category: CategoryTypes) => (
             <CategoryCard
               key={category.idCategory}
               category={category}

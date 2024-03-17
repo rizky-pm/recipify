@@ -8,10 +8,10 @@ import { ScrollArea, ScrollBar } from './ui/scroll-area';
 import { COUNTRIES } from '@/constants';
 import { fetchData } from '@/lib/utils';
 import { Skeleton } from './ui/skeleton';
-import { Country } from '@/types';
+import { CountryTypes } from '@/types';
 
 interface CountryCardProps {
-  country: Country;
+  country: CountryTypes;
   navigate: (path: string) => void;
 }
 
