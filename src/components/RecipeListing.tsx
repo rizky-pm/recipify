@@ -87,14 +87,16 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
   if (isLoading) {
     return (
       <MaxWidthWrapper className='my-8 flex flex-col'>
-        <Skeleton className='h-10 w-2/3 sm:w-1/3 xl:w-1/4 mt-4 self-center sm:self-start' />
-        <Skeleton className='h-6 w-3/4 sm:w-2/4 xl:w-1/6  mt-2 self-center sm:self-start' />
-        <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 lg:grid-cols-5 my-4'>
+        <div className='flex flex-col sm:flex-row items-center w-full justify-between'>
+          <Skeleton className='h-10 w-2/3 sm:w-1/3 xl:w-1/4 self-center sm:self-start' />
+          <Skeleton className='h-6 w-3/4 sm:w-1/3 xl:w-1/6 self-center mt-2 sm:mt-0' />
+        </div>
+        <div className='grid grid-cols-1 sm:grid-cols-3 gap-6 lg:grid-cols-5 my-4'>
           {Array.from({ length: isSmallDesktopScreen ? 10 : 9 }).map(
             (_, index) => (
               <Skeleton
                 key={index}
-                className='h-96 sm:h-60 w-full sm:w-48 rounded-md lg:h-64 lg:w-52 xl:w-56 xl:h-72'
+                className='h-[365px] sm:h-56 w-full sm:w-44 rounded-md lg:h-64 lg:w-52 xl:w-56 xl:h-72'
               />
             )
           )}
