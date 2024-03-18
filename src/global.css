@@ -65,3 +65,25 @@
 .card-shadow {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
+
+.recipe-listing-navigation {
+  display: grid;
+  grid-template-columns: 0.1fr 1.9fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 8px;
+  grid-template-areas:
+    'back-btn title title'
+    'back-btn subtitle subtitle';
+}
+
+.back-btn {
+  grid-area: back-btn;
+}
+
+.title {
+  grid-area: title;
+}
+
+.subtitle {
+  grid-area: subtitle;
+}

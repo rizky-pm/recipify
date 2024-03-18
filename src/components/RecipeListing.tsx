@@ -9,6 +9,7 @@ import { fetchData } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import { Skeleton } from './ui/skeleton';
 import TypographyH1 from './TypographyH1';
+import BackButton from './BackButton';
 
 interface Meal {
   idMeal: string;
@@ -99,9 +100,12 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
 
   return mealsData.length ? (
     <MaxWidthWrapper className='my-4'>
-      <div className='text-center sm:text-left'>
-        <TypographyH1>{countryName || categoryName}</TypographyH1>
-        <small className='text-base sm:text-xl font-medium leading-none'>
+      <div className='text-center sm:text-left recipe-listing-navigation -ml-12'>
+        <BackButton className='back-btn' />
+        <TypographyH1 className='title '>
+          {countryName || categoryName}
+        </TypographyH1>
+        <small className='text-base sm:text-xl font-medium leading-none subtitle'>
           {mealsData.length} recipe(s) found{' '}
           {search && (
             <>

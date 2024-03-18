@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { animateScroll as scroll } from 'react-scroll';
-import { useNavigate } from 'react-router-dom';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -10,15 +9,15 @@ import { Badge } from '@/components/ui/badge';
 import TypographyH3 from '@/components/TypographyH3';
 import TypographyH2 from '@/components/TypographyH2';
 import TypographyH1 from '@/components/TypographyH1';
-import { ChevronLeft, Link2, Youtube } from 'lucide-react';
+import { Link2, Youtube } from 'lucide-react';
 import { API_BASE_URL } from '@/constants';
 import { MealTypes } from '@/types';
 import NotFound from '@/components/NotFound';
+import BackButton from '@/components/BackButton';
 
 const Meal = () => {
   const [mealData, setMealData] = useState<MealTypes | null>(null);
   const { mealId } = useParams();
-  const navigate = useNavigate();
 
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: ['meal-detail'],
@@ -26,10 +25,6 @@ const Meal = () => {
       fetch(`${API_BASE_URL}/lookup.php?i=${mealId}`).then((res) => res.json()),
     gcTime: 0,
   });
-
-  const handleBackButton = () => {
-    navigate(-1);
-  };
 
   useEffect(() => {
     if (data) {
@@ -117,13 +112,8 @@ const Meal = () => {
   return (
     <MaxWidthWrapper className='py-4'>
       <div className='flex flex-col mt-4'>
-        <div className='flex space-x-2 items-center'>
-          <div
-            className='rounded-full hover:bg-accent transition-all cursor-pointer'
-            onClick={handleBackButton}
-          >
-            <ChevronLeft className='w-12 h-12' />
-          </div>
+        <div className='flex items-center -ml-12'>
+          <BackButton />
           <TypographyH1 className='text-center sm:text-left'>
             {mealData?.strMeal}
           </TypographyH1>
