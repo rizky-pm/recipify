@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { scroller, Element } from 'react-scroll';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -71,9 +71,9 @@ const Home = () => {
     });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-  };
+  }, []);
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && search !== '') {
@@ -82,9 +82,26 @@ const Home = () => {
     }
   };
 
-  const handleClick = (mealId: string) => {
-    navigate(`/meal/${mealId}`);
-  };
+  const handleClick = useCallback(
+    (mealId: string) => {
+      navigate(`/meal/${mealId}`);
+    },
+    [navigate]
+  );
+
+  const mergeMealData = useMemo(() => {
+    return (data1: MealTypes[], data2: MealTypes[]) => {
+      const uniqueIds: Record<string, boolean> = {};
+      const mergedData = [...data1, ...data2].filter(({ idMeal }) => {
+        if (!uniqueIds[idMeal]) {
+          uniqueIds[idMeal] = true;
+          return true;
+        }
+        return false;
+      });
+      return mergedData;
+    };
+  }, []);
 
   useEffect(() => {
     if (byNameData && byIngredientData) {
@@ -94,19 +111,13 @@ const Home = () => {
         scrollToResult();
       }
     }
-  }, [byNameData, byIngredientData]);
-
-  const mergeMealData = (data1: MealTypes[], data2: MealTypes[]) => {
-    const uniqueIds: Record<string, boolean> = {};
-    const mergedData = [...data1, ...data2].filter(({ idMeal }) => {
-      if (!uniqueIds[idMeal]) {
-        uniqueIds[idMeal] = true;
-        return true;
-      }
-      return false;
-    });
-    return mergedData;
-  };
+  }, [
+    byNameData,
+    byIngredientData,
+    mergeMealData,
+    byNameIsSuccess,
+    byIngredientIsSuccess,
+  ]);
 
   useEffect(() => {
     if (randomMealOne && randomMealTwo) {

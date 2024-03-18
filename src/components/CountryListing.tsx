@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useMemo, useCallback } from 'react';
 
 import MaxWidthWrapper from './MaxWidthWrapper';
 import TypographyH2 from './TypographyH2';
@@ -23,6 +24,23 @@ const CountryListing = () => {
     queryFn: () => fetchData(`/filter.php?a=list`),
   });
 
+  const memoizedNavigate = useCallback(
+    (path: string) => {
+      navigate(path);
+    },
+    [navigate]
+  );
+
+  const countryCards = useMemo(() => {
+    return COUNTRIES.map((country) => (
+      <CountryCard
+        key={country.strArea}
+        country={country}
+        navigate={memoizedNavigate}
+      />
+    ));
+  }, [COUNTRIES, memoizedNavigate]);
+
   if (isLoading) {
     return (
       <MaxWidthWrapper className='flex flex-col'>
@@ -44,13 +62,7 @@ const CountryListing = () => {
               Discover recipes from around the globe
             </p>
           </div>
-          {COUNTRIES.map((country) => (
-            <CountryCard
-              key={country.strArea}
-              country={country}
-              navigate={navigate}
-            />
-          ))}
+          {countryCards}
         </div>
         <ScrollBar orientation='horizontal' />
       </ScrollArea>

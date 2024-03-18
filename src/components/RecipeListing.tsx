@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { fetchData } from '@/lib/utils';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Skeleton } from './ui/skeleton';
 import TypographyH1 from './TypographyH1';
 import BackButton from './BackButton';
@@ -52,9 +52,12 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
     enabled: false,
   });
 
-  const handleClick = (mealId: string) => {
-    navigate(`/meal/${mealId}`);
-  };
+  const handleClick = useCallback(
+    (mealId: string) => {
+      navigate(`/meal/${mealId}`);
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -79,6 +82,8 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
     }
   }, [mealsDataFromQuery]);
 
+  const memoizedMealsData = useMemo(() => mealsData, [mealsData]);
+
   if (isLoading) {
     return (
       <MaxWidthWrapper className='my-8 flex flex-col'>
@@ -98,13 +103,13 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
     );
   }
 
-  return mealsData.length ? (
+  return memoizedMealsData.length ? (
     <MaxWidthWrapper className='my-8'>
       <div className='text-center sm:text-left flex flex-col sm:flex-row items-center md:-ml-12'>
         <BackButton className='hidden md:flex' />
         <TypographyH1 className=''>{countryName || categoryName}</TypographyH1>
         <small className='text-base sm:text-lg font-medium leading-none sm:ml-auto'>
-          {mealsData.length} recipe(s) found{' '}
+          {memoizedMealsData.length} recipe(s) found{' '}
           {search && (
             <>
               for <span className='font-bold text-foreground'>"{search}"</span>
@@ -113,9 +118,9 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
         </small>
       </div>
 
-      {mealsData.length > 0 ? (
+      {memoizedMealsData.length > 0 ? (
         <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-8 mt-4'>
-          {mealsData.map((meal) => (
+          {memoizedMealsData.map((meal) => (
             <Card
               key={meal.idMeal}
               onClick={() => handleClick(meal.idMeal)}

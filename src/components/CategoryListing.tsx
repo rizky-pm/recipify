@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useMemo, useCallback } from 'react';
 
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -21,6 +22,23 @@ const CategoryListing = () => {
     queryKey: ['category-listing'],
     queryFn: () => fetchData('/categories.php'),
   });
+
+  const memoizedNavigate = useCallback(
+    (path: string) => {
+      navigate(path);
+    },
+    [navigate]
+  );
+
+  const categoryCards = useMemo(() => {
+    return data?.categories.map((category: CategoryTypes) => (
+      <CategoryCard
+        key={category.idCategory}
+        category={category}
+        navigate={memoizedNavigate}
+      />
+    ));
+  }, [data?.categories, memoizedNavigate]);
 
   if (isLoading) {
     return (
@@ -45,13 +63,7 @@ const CategoryListing = () => {
               Indulge in diverse culinary categories
             </p>
           </div>
-          {data.categories.map((category: CategoryTypes) => (
-            <CategoryCard
-              key={category.idCategory}
-              category={category}
-              navigate={navigate}
-            />
-          ))}
+          {categoryCards}
         </div>
         <ScrollBar orientation='horizontal' />
       </ScrollArea>
