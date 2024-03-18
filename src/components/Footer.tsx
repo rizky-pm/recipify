@@ -21,7 +21,7 @@ const FooterLink: React.FC<FooterLinkProps> = ({ href, icon }) => {
 
 const Footer = () => {
   return (
-    <footer className='py-6 sm:py-8 bg-primary text-background text-center lg:text-left'>
+    <footer className='py-6 sm:py-8 bg-primary text-background text-center lg:text-left mt-auto'>
       <MaxWidthWrapper className='flex flex-col space-y-4'>
         <div className='flex flex-wrap items-center justify-between flex-col lg:flex-row space-y-4 lg:items-baseline'>
           <div className='w-full lg:w-1/2'>

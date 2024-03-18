@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { animateScroll as scroll } from 'react-scroll';
+import { useNavigate } from 'react-router-dom';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -9,30 +10,46 @@ import { Badge } from '@/components/ui/badge';
 import TypographyH3 from '@/components/TypographyH3';
 import TypographyH2 from '@/components/TypographyH2';
 import TypographyH1 from '@/components/TypographyH1';
-import { Link2, Youtube } from 'lucide-react';
+import { ChevronLeft, Link2, Youtube } from 'lucide-react';
 import { API_BASE_URL } from '@/constants';
+import { MealTypes } from '@/types';
+import NotFound from '@/components/NotFound';
 
 const Meal = () => {
+  const [mealData, setMealData] = useState<MealTypes | null>(null);
   const { mealId } = useParams();
+  const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ['meal-detail'],
     queryFn: () =>
       fetch(`${API_BASE_URL}/lookup.php?i=${mealId}`).then((res) => res.json()),
     gcTime: 0,
   });
 
-  const meal = data?.meals[0];
+  const handleBackButton = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
-    if (meal) {
-      document.title = `Recipify | ${meal.strMeal}`;
+    if (data) {
+      if (data.meals !== null) {
+        setMealData(data.meals[0]);
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (mealData) {
+      document.title = `Recipify | ${mealData?.strMeal}`;
+    } else {
+      document.title = `Recipify | Meal not found`;
     }
 
     return () => {
       document.title = 'Recipify';
     };
-  }, [meal]);
+  }, [mealData]);
 
   useEffect(() => {
     scroll.scrollToTop({
@@ -40,6 +57,10 @@ const Meal = () => {
       smooth: false,
     });
   }, []);
+
+  if (!mealData && isSuccess) {
+    return <NotFound />;
+  }
 
   if (isLoading) {
     return (
@@ -78,38 +99,51 @@ const Meal = () => {
     );
   }
 
-  const instruction = meal.strInstructions.split('\n').filter(Boolean);
-  const tags = meal.strTags ? meal.strTags.split(',').filter(Boolean) : [];
+  const instruction = mealData?.strInstructions?.split('\n').filter(Boolean);
+  const tags = mealData?.strTags
+    ? mealData?.strTags.split(',').filter(Boolean)
+    : [];
 
-  const ingredients = Object.entries(meal)
+  const ingredients = Object.entries(mealData || {})
     .filter(([key, value]) => key.startsWith('strIngredient') && value)
     .map(([key, value]) => ({
       ingredient: value,
-      measure: meal[`strMeasure${key.replace('strIngredient', '')}`],
+      measure:
+        mealData![
+          `strMeasure${key.replace('strIngredient', '')}` as keyof MealTypes
+        ],
     }));
 
   return (
-    <MaxWidthWrapper className='py-8'>
-      <div className='flex flex-col'>
-        <TypographyH1 className='text-center sm:text-left'>
-          {meal.strMeal}
-        </TypographyH1>
+    <MaxWidthWrapper className='py-4'>
+      <div className='flex flex-col mt-4'>
+        <div className='flex space-x-2 items-center'>
+          <div
+            className='rounded-full hover:bg-accent transition-all cursor-pointer'
+            onClick={handleBackButton}
+          >
+            <ChevronLeft className='w-12 h-12' />
+          </div>
+          <TypographyH1 className='text-center sm:text-left'>
+            {mealData?.strMeal}
+          </TypographyH1>
+        </div>
         <img
-          src={meal.strMealThumb}
-          alt={meal.strMeal}
+          src={mealData?.strMealThumb}
+          alt={mealData?.strMeal}
           className='my-4 rounded-md h-80 lg:h-96 sm:w-full aspect-square sm:aspect-video sm:object-cover'
         />
       </div>
 
       <div className='flex flex-wrap gap-2 mb-4'>
-        {meal.strArea && (
+        {mealData?.strArea && (
           <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/75'>
-            {meal.strArea}
+            {mealData?.strArea}
           </Badge>
         )}
-        {meal.strCategory && (
+        {mealData?.strCategory && (
           <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/75'>
-            {meal.strCategory}
+            {mealData?.strCategory}
           </Badge>
         )}
         {tags.map((tag: string, index: number) => (
@@ -137,7 +171,7 @@ const Meal = () => {
       <div className='mt-4'>
         <TypographyH3 className='sm:hidden'>Instructions</TypographyH3>
         <TypographyH2 className='hidden sm:block'>Instructions</TypographyH2>
-        {instruction.map((line: string, index: number) => (
+        {instruction?.map((line: string, index: number) => (
           <p key={index} className='mb-[1em]'>
             {line}
           </p>
@@ -145,9 +179,9 @@ const Meal = () => {
       </div>
 
       <div className='mt-4 flex-wrap flex items-center gap-4'>
-        {meal.strSource && (
+        {mealData?.strSource && (
           <a
-            href={meal.strSource}
+            href={mealData?.strSource}
             target='_blank'
             rel='noopener noreferrer'
             className='group flex gap-1 items-center text-foreground hover:text-primary transition-all'
@@ -158,9 +192,9 @@ const Meal = () => {
             </span>
           </a>
         )}
-        {meal.strYoutube && (
+        {mealData?.strYoutube && (
           <a
-            href={meal.strYoutube}
+            href={mealData?.strYoutube}
             target='_blank'
             rel='noopener noreferrer'
             className='group flex gap-1 items-center text-foreground hover:text-primary transition-all'

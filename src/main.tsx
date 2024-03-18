@@ -19,7 +19,9 @@ if ('serviceWorker' in navigator) {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Providers />
-    <Footer />
+    <div className='flex flex-col min-h-screen relative'>
+      <Providers />
+      <Footer />
+    </div>
   </React.StrictMode>
 );
