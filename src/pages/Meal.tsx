@@ -110,10 +110,10 @@ const Meal = () => {
     }));
 
   return (
-    <MaxWidthWrapper className='py-4'>
-      <div className='flex flex-col mt-4'>
-        <div className='flex items-center -ml-12'>
-          <BackButton />
+    <MaxWidthWrapper className='my-8'>
+      <div className='flex flex-col'>
+        <div className='flex items-center sm:-ml-12'>
+          <BackButton className='hidden sm:block' />
           <TypographyH1 className='text-center sm:text-left'>
             {mealData?.strMeal}
           </TypographyH1>
@@ -147,8 +147,8 @@ const Meal = () => {
       </div>
 
       <div>
-        <TypographyH3 className='sm:hidden'>Ingredients</TypographyH3>
-        <TypographyH2 className='hidden sm:block'>Ingredients</TypographyH2>
+        <TypographyH3 className='lg:hidden'>Ingredients</TypographyH3>
+        <TypographyH2 className='hidden lg:block'>Ingredients</TypographyH2>
         <ul>
           {ingredients.map(({ ingredient, measure }, index) => (
             <li key={index}>
@@ -159,8 +159,8 @@ const Meal = () => {
       </div>
 
       <div className='mt-4'>
-        <TypographyH3 className='sm:hidden'>Instructions</TypographyH3>
-        <TypographyH2 className='hidden sm:block'>Instructions</TypographyH2>
+        <TypographyH3 className='lg:hidden'>Instructions</TypographyH3>
+        <TypographyH2 className='hidden lg:block'>Instructions</TypographyH2>
         {instruction?.map((line: string, index: number) => (
           <p key={index} className='mb-[1em]'>
             {line}

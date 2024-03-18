@@ -99,9 +99,9 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
   }
 
   return mealsData.length ? (
-    <MaxWidthWrapper className='my-4'>
-      <div className='text-center sm:text-left recipe-listing-navigation -ml-12'>
-        <BackButton className='back-btn' />
+    <MaxWidthWrapper className='my-8'>
+      <div className='text-center sm:text-left recipe-listing-navigation sm:-ml-12'>
+        <BackButton className='back-btn hidden sm:block' />
         <TypographyH1 className='title '>
           {countryName || categoryName}
         </TypographyH1>
@@ -116,7 +116,7 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
       </div>
 
       {mealsData.length > 0 ? (
-        <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-8'>
           {mealsData.map((meal) => (
             <Card
               key={meal.idMeal}

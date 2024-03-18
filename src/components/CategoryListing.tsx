@@ -25,23 +25,23 @@ const CategoryListing = () => {
   if (isLoading) {
     return (
       <MaxWidthWrapper className='mt-4 flex flex-col'>
-        <Skeleton className='h-8 sm:h-11 w-1/3 mb-4' />
-        <Skeleton className='h-60 sm:h-72 w-full rounded' />
+        <Skeleton className='h-8 lg:h-11 w-1/3 mb-4' />
+        <Skeleton className='h-60 lg:h-72 w-full rounded' />
       </MaxWidthWrapper>
     );
   }
 
   return data ? (
-    <MaxWidthWrapper className='mt-4'>
-      <TypographyH3 className='mb-4 sm:hidden'>Categories</TypographyH3>
-      <TypographyH2 className='mb-4 hidden sm:block'>Categories</TypographyH2>
+    <MaxWidthWrapper>
+      <TypographyH3 className='mb-2 lg:hidden'>Categories</TypographyH3>
+      <TypographyH2 className='mb-2 hidden lg:block'>Categories</TypographyH2>
       <ScrollArea className='w-full whitespace-nowrap rounded-md bg-primary/75 card-shadow'>
-        <div className='flex w-max space-x-4 sm:space-x-6 px-4 sm:px-6 py-6 sm:py-8'>
+        <div className='flex w-max space-x-4 lg:space-x-6 px-4 lg:px-6 py-6 lg:py-8'>
           <div
             id='section'
-            className='w-44 sm:w-52 flex flex-col justify-center rounded'
+            className='w-44 lg:w-52 flex flex-col justify-center rounded'
           >
-            <p className='whitespace-normal text-3xl sm:text-4xl font-bold text-background'>
+            <p className='whitespace-normal text-3xl lg:text-4xl font-bold text-background'>
               Indulge in diverse culinary categories
             </p>
           </div>
@@ -61,18 +61,18 @@ const CategoryListing = () => {
 
 const CategoryCard = ({ category, navigate }: CategoryCardProps) => (
   <figure
-    className='shrink-0 p-4 sm:p-6 rounded bg-background cursor-pointer'
+    className='shrink-0 p-4 lg:p-6 rounded bg-background cursor-pointer'
     onClick={() => navigate(`category/${category.strCategory}`)}
   >
     <div className='overflow-hidden rounded-md'>
       <img
         src={category.strCategoryThumb}
         alt={category.strCategoryDescription}
-        className='w-44 h-32 sm:w-48 sm:h-36'
+        className='w-44 h-32 lg:w-48 lg:h-36'
       />
     </div>
     <figcaption className='pt-2 text-base text-muted-foreground'>
-      <span className='font-semibold text-foreground sm:text-2xl'>
+      <span className='font-semibold text-foreground text-xl lg:text-2xl'>
         {category.strCategory}
       </span>
     </figcaption>

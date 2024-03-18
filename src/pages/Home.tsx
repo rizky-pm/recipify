@@ -155,14 +155,14 @@ const Home = () => {
             <>
               <Skeleton className='h-8 w-[250px] mb-4' />
               <div className='flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12'>
-                <Skeleton className='h-80 w-full rounded-xl' />
-                <Skeleton className='h-80 w-full rounded-xl' />
+                <Skeleton className='h-72 w-full rounded-xl' />
+                <Skeleton className='h-72 w-full rounded-xl' />
               </div>
             </>
           ) : (
             <>
-              <TypographyH3 className='mb-4 sm:hidden'>Our Pick</TypographyH3>
-              <TypographyH2 className='mb-4 hidden sm:block'>
+              <TypographyH3 className='mb-4 lg:hidden'>Our Pick</TypographyH3>
+              <TypographyH2 className='mb-4 hidden lg:block'>
                 Our Pick
               </TypographyH2>
 
@@ -175,7 +175,7 @@ const Home = () => {
                     }
                     className='cursor-pointer sm:cursor-default card-shadow sm:flex lg:w-2/4'
                   >
-                    <CardContent className='p-0 h-80 sm:w-1/2'>
+                    <CardContent className='p-0 h-72 sm:w-1/2'>
                       <img
                         src={meal.strMealThumb}
                         alt={`Picture of ${meal.strMeal}`}

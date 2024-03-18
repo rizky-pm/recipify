@@ -17,7 +17,7 @@ const BackButton = ({ className }: { className?: string }) => {
       )}
       onClick={handleBack}
     >
-      <ChevronLeft className='w-12 h-12' />
+      <ChevronLeft className='w-10 h-10 lg:w-12 lg:h-12' />
     </div>
   );
 };

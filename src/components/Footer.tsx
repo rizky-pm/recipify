@@ -37,23 +37,23 @@ const Footer = () => {
               Contact
             </h2>
 
-            <div className='flex space-x-4 justify-center lg:justify-end'>
+            <div className='flex space-x-2 justify-center lg:justify-end'>
               <FooterLink
                 href={'https://linkedin.com/in/rizky-p-mahendra/'}
                 icon={
-                  <Linkedin className='w-7 h-7 sm:w-10 sm:h-10 text-background group-hover:text-primary transition-all' />
+                  <Linkedin className='w-7 h-7 sm:w-8 sm:h-8 text-background group-hover:text-primary transition-all' />
                 }
               />
               <FooterLink
                 href={'https://github.com/rizky-pm'}
                 icon={
-                  <Github className='w-7 h-7 sm:w-10 sm:h-10 text-background group-hover:text-primary transition-all' />
+                  <Github className='w-7 h-7 sm:w-8 sm:h-8 text-background group-hover:text-primary transition-all' />
                 }
               />
               <FooterLink
                 href={'mailto:rizkymahendra2346@gmail.com'}
                 icon={
-                  <Mail className='w-7 h-7 sm:w-10 sm:h-10 text-background group-hover:text-primary transition-all group-hover:background-red-500' />
+                  <Mail className='w-7 h-7 sm:w-8 sm:h-8 text-background group-hover:text-primary transition-all group-hover:background-red-500' />
                 }
               />
             </div>
