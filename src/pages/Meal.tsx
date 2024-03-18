@@ -112,11 +112,9 @@ const Meal = () => {
   return (
     <MaxWidthWrapper className='my-8'>
       <div className='flex flex-col'>
-        <div className='flex items-center sm:-ml-12'>
-          <BackButton className='hidden sm:block' />
-          <TypographyH1 className='text-center sm:text-left'>
-            {mealData?.strMeal}
-          </TypographyH1>
+        <div className='flex items-center justify-center sm:justify-start md:-ml-12'>
+          <BackButton className='hidden md:flex' />
+          <TypographyH1>{mealData?.strMeal}</TypographyH1>
         </div>
         <img
           src={mealData?.strMealThumb}

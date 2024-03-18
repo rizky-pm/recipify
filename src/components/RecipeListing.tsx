@@ -81,7 +81,7 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
 
   if (isLoading) {
     return (
-      <MaxWidthWrapper className='mb-4 flex flex-col'>
+      <MaxWidthWrapper className='my-8 flex flex-col'>
         <Skeleton className='h-10 w-2/3 sm:w-1/3 xl:w-1/4 mt-4 self-center sm:self-start' />
         <Skeleton className='h-6 w-3/4 sm:w-2/4 xl:w-1/6  mt-2 self-center sm:self-start' />
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 lg:grid-cols-5 my-4'>
@@ -100,12 +100,10 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
 
   return mealsData.length ? (
     <MaxWidthWrapper className='my-8'>
-      <div className='text-center sm:text-left recipe-listing-navigation sm:-ml-12'>
-        <BackButton className='back-btn hidden sm:block' />
-        <TypographyH1 className='title '>
-          {countryName || categoryName}
-        </TypographyH1>
-        <small className='text-base sm:text-xl font-medium leading-none subtitle'>
+      <div className='text-center sm:text-left flex flex-col sm:flex-row items-center md:-ml-12'>
+        <BackButton className='hidden md:flex' />
+        <TypographyH1 className=''>{countryName || categoryName}</TypographyH1>
+        <small className='text-base sm:text-lg font-medium leading-none sm:ml-auto'>
           {mealsData.length} recipe(s) found{' '}
           {search && (
             <>
@@ -116,7 +114,7 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
       </div>
 
       {mealsData.length > 0 ? (
-        <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-8'>
+        <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-8 mt-4'>
           {mealsData.map((meal) => (
             <Card
               key={meal.idMeal}

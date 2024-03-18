@@ -12,7 +12,7 @@ const BackButton = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        'rounded-full hover:bg-accent transition-all w-12 h-12 cursor-pointer',
+        'rounded-full hover:bg-accent transition-all w-12 h-12 cursor-pointer flex items-center justify-center',
         className
       )}
       onClick={handleBack}
