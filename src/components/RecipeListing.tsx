@@ -8,8 +8,8 @@ import MaxWidthWrapper from './MaxWidthWrapper';
 import { fetchData } from '@/lib/utils';
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Skeleton } from './ui/skeleton';
-import TypographyH1 from './TypographyH1';
 import BackButton from './BackButton';
+import TypographyH1 from './TypographyH1';
 
 interface Meal {
   idMeal: string;
@@ -20,9 +20,14 @@ interface Meal {
 interface Props {
   meals?: Meal[];
   search?: string;
+  isDoneFetching?: boolean;
 }
 
-const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
+const RecipeListing: React.FC<Props> = ({
+  meals,
+  search,
+  isDoneFetching,
+}: Props) => {
   const [mealsData, setMealsData] = useState<Meal[]>([]);
 
   const { pathname } = useLocation();
@@ -101,6 +106,22 @@ const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
             )
           )}
         </div>
+      </MaxWidthWrapper>
+    );
+  }
+
+  if (memoizedMealsData.length === 0 && isDoneFetching) {
+    return (
+      <MaxWidthWrapper className='my-8 text-center'>
+        <small className='text-base sm:text-lg md:text-xl font-medium leading-none sm:ml-auto'>
+          No results found for{' '}
+          {search && (
+            <>
+              for <span className='font-bold text-foreground'>"{search}"</span>
+            </>
+          )}
+          . Please try a different search term.
+        </small>
       </MaxWidthWrapper>
     );
   }

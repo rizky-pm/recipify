@@ -35,6 +35,8 @@ const Home = () => {
     queryKey: ['meal-by-name'],
     queryFn: () => fetchData(`/search.php?s=${search}`),
     enabled: false,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const {
@@ -46,6 +48,8 @@ const Home = () => {
     queryKey: ['meal-by-ingredient'],
     queryFn: () => fetchData(`/filter.php?i=${search}`),
     enabled: false,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const { data: randomMealOne } = useQuery({
@@ -64,6 +68,10 @@ const Home = () => {
     refetchOnMount: false,
   });
 
+  const isDoneFetching = useMemo(() => {
+    return byNameIsSuccess && byIngredientIsSuccess;
+  }, [byNameIsSuccess, byIngredientIsSuccess]);
+
   const scrollToResult = () => {
     scroller.scrollTo('search-result', {
       duration: 1000,
@@ -75,10 +83,14 @@ const Home = () => {
     setSearch(e.target.value);
   }, []);
 
-  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && search !== '') {
-      byNameRefetch();
-      byIngredientRefetch();
+      const res1 = await byNameRefetch();
+      const res2 = await byIngredientRefetch();
+
+      if (res1.status === 'success' && res2.status === 'success') {
+        scrollToResult();
+      }
     }
   };
 
@@ -90,15 +102,28 @@ const Home = () => {
   );
 
   const mergeMealData = useMemo(() => {
-    return (data1: MealTypes[], data2: MealTypes[]) => {
+    return (data1: MealTypes[] | null, data2: MealTypes[] | null) => {
+      if (!data1 && !data2) return [];
+
       const uniqueIds: Record<string, boolean> = {};
-      const mergedData = [...data1, ...data2].filter(({ idMeal }) => {
-        if (!uniqueIds[idMeal]) {
-          uniqueIds[idMeal] = true;
-          return true;
-        }
-        return false;
-      });
+
+      const mergedData = [
+        ...(data1 ?? []).filter(({ idMeal }) => {
+          if (!uniqueIds[idMeal]) {
+            uniqueIds[idMeal] = true;
+            return true;
+          }
+          return false;
+        }),
+        ...(data2 ?? []).filter(({ idMeal }) => {
+          if (!uniqueIds[idMeal]) {
+            uniqueIds[idMeal] = true;
+            return true;
+          }
+          return false;
+        }),
+      ];
+
       return mergedData;
     };
   }, []);
@@ -107,9 +132,7 @@ const Home = () => {
     if (byNameData && byIngredientData) {
       const meals = mergeMealData(byNameData.meals, byIngredientData.meals);
       setMealsData(meals);
-      if (byNameIsSuccess && byIngredientIsSuccess) {
-        scrollToResult();
-      }
+      // scrollToResult();
     }
   }, [
     byNameData,
@@ -235,11 +258,13 @@ const Home = () => {
         <CategoryListing />
         <CountryListing />
 
-        {byNameData && byIngredientData && (
-          <Element name='search-result'>
-            <RecipeListing meals={mealsData} search={search} />
-          </Element>
-        )}
+        <Element name='search-result'>
+          <RecipeListing
+            meals={mealsData}
+            search={search}
+            isDoneFetching={isDoneFetching}
+          />
+        </Element>
       </div>
     </>
   );
