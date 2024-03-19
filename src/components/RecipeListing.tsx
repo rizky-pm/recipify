@@ -129,7 +129,7 @@ const RecipeListing: React.FC<Props> = ({
   return memoizedMealsData.length ? (
     <MaxWidthWrapper className='my-8'>
       <div className='text-center sm:text-left flex flex-col sm:flex-row items-center md:-ml-12'>
-        <BackButton className='hidden md:flex' />
+        {pathname !== '/' ? <BackButton className='hidden md:flex' /> : null}
         <TypographyH1 className=''>{countryName || categoryName}</TypographyH1>
         <small className='text-base sm:text-lg font-medium leading-none sm:ml-auto'>
           {memoizedMealsData.length} recipe(s) found{' '}
