@@ -19,7 +19,7 @@ const Meal = () => {
   const [mealData, setMealData] = useState<MealTypes | null>(null);
   const { mealId } = useParams();
 
-  const { data, isLoading, isSuccess } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['meal-detail'],
     queryFn: () =>
       fetch(`${API_BASE_URL}/lookup.php?i=${mealId}`).then((res) => res.json()),
@@ -30,6 +30,8 @@ const Meal = () => {
     if (data) {
       if (data.meals !== null) {
         setMealData(data.meals[0]);
+      } else if (data.meals === null) {
+        data.meals;
       }
     }
   }, [data]);
@@ -53,7 +55,7 @@ const Meal = () => {
     });
   }, []);
 
-  if (!mealData && isSuccess) {
+  if (data?.meals === null) {
     return <NotFound />;
   }
 
