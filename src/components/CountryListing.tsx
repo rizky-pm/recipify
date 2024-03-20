@@ -55,7 +55,7 @@ const CountryListing = () => {
       <TypographyH3 className='mb-2 lg:hidden'>Countries</TypographyH3>
       <TypographyH2 className='mb-2 hidden lg:block'>Countries</TypographyH2>
 
-      <ScrollArea className='w-full whitespace-nowrap rounded-md bg-primary/75 card-shadow'>
+      <ScrollArea className='w-full whitespace-nowrap rounded-md bg-primary/50 card-shadow'>
         <div className='flex w-max space-x-4 lg:space-x-6 px-4 lg:px-6 py-6 lg:py-8'>
           <div className='w-44 lg:w-52 flex flex-col justify-center rounded'>
             <p className='whitespace-normal text-3xl lg:text-4xl font-bold text-background'>

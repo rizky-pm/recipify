@@ -125,19 +125,19 @@ const Meal = () => {
 
       <div className='flex flex-wrap gap-2 mb-4'>
         {mealData?.strArea && (
-          <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/75'>
+          <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/50'>
             {mealData?.strArea}
           </Badge>
         )}
         {mealData?.strCategory && (
-          <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/75'>
+          <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/50'>
             {mealData?.strCategory}
           </Badge>
         )}
         {tags.map((tag: string, index: number) => (
           <Badge
             key={index}
-            className='sm:px-4 sm:py-1 sm:text-base bg-primary/75'
+            className='sm:px-4 sm:py-1 sm:text-base bg-primary/50'
           >
             {tag}
           </Badge>

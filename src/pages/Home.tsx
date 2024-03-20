@@ -221,10 +221,10 @@ const Home = () => {
                         {meal.strMeal}
                       </CardTitle>
                       <div className='hidden sm:flex sm:gap-2 sm:mt-4 sm:flex-wrap'>
-                        <Badge className='px-4 py-1 text-base bg-primary/75'>
+                        <Badge className='px-4 py-1 text-base bg-primary/50'>
                           {meal.strArea}
                         </Badge>
-                        <Badge className='px-4 py-1 text-base bg-primary/75'>
+                        <Badge className='px-4 py-1 text-base bg-primary/50'>
                           {meal.strCategory}
                         </Badge>
                         {meal.strTags
@@ -232,7 +232,7 @@ const Home = () => {
                           .filter(Boolean)
                           .map((tag: string) => (
                             <Badge
-                              className='px-4 py-1 text-base bg-primary/75'
+                              className='px-4 py-1 text-base bg-primary/50'
                               key={tag}
                             >
                               {tag}
