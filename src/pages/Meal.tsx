@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { animateScroll as scroll } from 'react-scroll';
@@ -16,7 +16,6 @@ import NotFound from '@/components/NotFound';
 import BackButton from '@/components/BackButton';
 
 const Meal = () => {
-  const [mealData, setMealData] = useState<MealTypes | null>(null);
   const { mealId } = useParams();
 
   const { data, isLoading } = useQuery({
@@ -27,18 +26,8 @@ const Meal = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      if (data.meals !== null) {
-        setMealData(data.meals[0]);
-      } else if (data.meals === null) {
-        data.meals;
-      }
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (mealData) {
-      document.title = `Recipify | ${mealData?.strMeal}`;
+    if (data?.meals[0]) {
+      document.title = `Recipify | ${data?.meals[0].strMeal}`;
     } else {
       document.title = `Recipify | Meal not found`;
     }
@@ -46,7 +35,7 @@ const Meal = () => {
     return () => {
       document.title = 'Recipify';
     };
-  }, [mealData]);
+  }, [data?.meals[0]]);
 
   useEffect(() => {
     scroll.scrollToTop({
@@ -96,17 +85,19 @@ const Meal = () => {
     );
   }
 
-  const instruction = mealData?.strInstructions?.split('\n').filter(Boolean);
-  const tags = mealData?.strTags
-    ? mealData?.strTags.split(',').filter(Boolean)
+  const instruction = data?.meals[0].strInstructions
+    ?.split('\n')
+    .filter(Boolean);
+  const tags = data?.meals[0].strTags
+    ? data?.meals[0].strTags.split(',').filter(Boolean)
     : [];
 
-  const ingredients = Object.entries(mealData || {})
+  const ingredients = Object.entries(data.meals || {})
     .filter(([key, value]) => key.startsWith('strIngredient') && value)
     .map(([key, value]) => ({
       ingredient: value,
       measure:
-        mealData![
+        data!.meals[
           `strMeasure${key.replace('strIngredient', '')}` as keyof MealTypes
         ],
     }));
@@ -116,24 +107,24 @@ const Meal = () => {
       <div className='flex flex-col'>
         <div className='flex items-center justify-center sm:justify-start md:-ml-12'>
           <BackButton className='hidden md:flex' />
-          <TypographyH1>{mealData?.strMeal}</TypographyH1>
+          <TypographyH1>{data?.meals[0].strMeal}</TypographyH1>
         </div>
         <img
-          src={mealData?.strMealThumb}
-          alt={mealData?.strMeal}
+          src={data?.meals[0].strMealThumb}
+          alt={data?.meals[0].strMeal}
           className='my-4 rounded-md h-80 lg:h-96 sm:w-full aspect-square sm:aspect-video sm:object-cover'
         />
       </div>
 
       <div className='flex flex-wrap gap-2 mb-4'>
-        {mealData?.strArea && (
+        {data?.meals[0].strArea && (
           <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/50'>
-            {mealData?.strArea}
+            {data?.meals[0].strArea}
           </Badge>
         )}
-        {mealData?.strCategory && (
+        {data?.meals[0].strCategory && (
           <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/50'>
-            {mealData?.strCategory}
+            {data?.meals[0].strCategory}
           </Badge>
         )}
         {tags.map((tag: string, index: number) => (
@@ -169,9 +160,9 @@ const Meal = () => {
       </div>
 
       <div className='mt-4 flex-wrap flex items-center gap-4'>
-        {mealData?.strSource && (
+        {data?.meals[0].strSource && (
           <a
-            href={mealData?.strSource}
+            href={data?.meals[0].strSource}
             target='_blank'
             rel='noopener noreferrer'
             className='group flex gap-1 items-center text-foreground hover:text-primary transition-all'
@@ -182,9 +173,9 @@ const Meal = () => {
             </span>
           </a>
         )}
-        {mealData?.strYoutube && (
+        {data?.meals[0].strYoutube && (
           <a
-            href={mealData?.strYoutube}
+            href={data?.meals[0].strYoutube}
             target='_blank'
             rel='noopener noreferrer'
             className='group flex gap-1 items-center text-foreground hover:text-primary transition-all'
