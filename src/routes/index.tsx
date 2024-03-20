@@ -1,6 +1,7 @@
 import RecipeListing from '@/components/RecipeListing';
 import Home from '@/pages/Home';
 import Meal from '@/pages/Meal';
+import Offline from '@/pages/Offline';
 import { createBrowserRouter } from 'react-router-dom';
 
 export const router = createBrowserRouter([
@@ -19,5 +20,9 @@ export const router = createBrowserRouter([
   {
     path: '/country/:countryName',
     element: <RecipeListing />,
+  },
+  {
+    path: '/offline',
+    element: <Offline />,
   },
 ]);

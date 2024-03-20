@@ -6,6 +6,10 @@ interface FooterLinkProps {
   icon: JSX.Element;
 }
 
+interface FooterProps {
+  showFooter: boolean;
+}
+
 const FooterLink: React.FC<FooterLinkProps> = ({ href, icon }) => {
   return (
     <a
@@ -19,8 +23,8 @@ const FooterLink: React.FC<FooterLinkProps> = ({ href, icon }) => {
   );
 };
 
-const Footer = () => {
-  return (
+const Footer = ({ showFooter }: FooterProps) => {
+  return showFooter ? (
     <footer className='py-6 sm:py-8 bg-primary text-background text-center lg:text-left mt-auto'>
       <MaxWidthWrapper className='flex flex-col space-y-4'>
         <div className='flex flex-wrap items-center justify-between flex-col lg:flex-row space-y-4 lg:items-baseline'>
@@ -65,7 +69,7 @@ const Footer = () => {
         </div>
       </MaxWidthWrapper>
     </footer>
-  );
+  ) : null;
 };
 
 export default Footer;
