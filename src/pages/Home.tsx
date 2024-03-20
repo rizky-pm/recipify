@@ -3,6 +3,9 @@ import { scroller, Element } from 'react-scroll';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Search } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
 import HeaderImage from '../assets/header-image.jpg';
@@ -17,7 +20,11 @@ import TypographyH2 from '@/components/TypographyH2';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { MealTypes } from '@/types';
-import { fetchData } from '@/lib/utils';
+import { cn, fetchData } from '@/lib/utils';
+import {
+  SearchTermValidator,
+  TSearchTermValidator,
+} from '@/lib/validators/search-validator';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
@@ -25,6 +32,14 @@ const Home = () => {
   const [randomMealsData, setRandomMealsData] = useState<MealTypes[]>([]);
   const navigate = useNavigate();
   const isMobileScreen = useMediaQuery({ maxWidth: 640 });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TSearchTermValidator>({
+    resolver: zodResolver(SearchTermValidator),
+  });
 
   const {
     data: byNameData,
@@ -83,8 +98,8 @@ const Home = () => {
     setSearch(e.target.value);
   }, []);
 
-  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && search !== '') {
+  const handleSearch = async () => {
+    if (search !== '') {
       const res1 = await byNameRefetch();
       const res2 = await byIngredientRefetch();
 
@@ -163,22 +178,41 @@ const Home = () => {
           className='bg-zinc-900/75 w-full h-full absolute top-0 left-0 flex'
         />
         <div className='absolute top-1/2 left-0 -translate-y-1/2 w-full'>
-          <MaxWidthWrapper className='text-center'>
-            <div>
-              <h1 className='text-6xl sm:text-7xl font-bold tracking-widest text-background text-center uppercase text-wrap'>
+          <MaxWidthWrapper className='lg:max-w-screen-lg flex flex-col'>
+            <div className='relative self-center sm:self-start'>
+              <h1 className='text-6xl sm:text-8xl font-bold tracking-widest text-primary uppercase text-wrap'>
+                Recipify
+              </h1>
+              <h1 className='z-10 absolute -top-1 -left-1 text-6xl sm:text-8xl font-bold tracking-widest text-background uppercase text-wrap'>
                 Recipify
               </h1>
             </div>
-            <div className='flex items-center gap-2 mt-8 sm:justify-center'>
-              <Input
-                type='text'
-                placeholder='Search by ingredient or name'
-                className='rounded-full text-center sm:w-4/5 sm:h-14 sm:text-lg'
-                onChange={handleChange}
-                onKeyDown={handleSearch}
-                disabled={byNameIsLoading && byIngredientIsLoading}
-              />
-            </div>
+            <form
+              onSubmit={handleSubmit(handleSearch)}
+              className='flex items-center gap-2 mt-8 sm:justify-center'
+            >
+              <div className='w-full grid grid-cols-10 grid-rows-2 gap-2 grid-areas-custom-layout'>
+                <Input
+                  {...register('search')}
+                  type='text'
+                  placeholder='Search by ingredient or name'
+                  className={cn(
+                    { 'focus-visible:ring-red-500': errors.search },
+                    'rounded-full text-center sm:text-left sm:h-14 sm:px-8 transition-all grid-area-input col-span-8 sm:col-span-9 text-xs sm:text-lg'
+                  )}
+                  onChange={handleChange}
+                  disabled={byNameIsLoading && byIngredientIsLoading}
+                />
+                <Button className='sm:h-14 grid-area-btn col-span-2 sm:col-span-1 rounded-full'>
+                  <Search className='sm:w-8 sm:h-8' />
+                </Button>
+                {errors?.search && (
+                  <p className='text-red-500 text-xs text-center sm:text-base sm:text-left sm:px-8 font-medium grid-area-error-msg col-span-8 sm:col-span-9'>
+                    {errors.search.message}
+                  </p>
+                )}
+              </div>
+            </form>
           </MaxWidthWrapper>
         </div>
       </div>
