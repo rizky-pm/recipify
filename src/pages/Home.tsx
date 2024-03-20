@@ -25,6 +25,7 @@ import {
   SearchTermValidator,
   TSearchTermValidator,
 } from '@/lib/validators/search-validator';
+import Logo from '@/components/Logo';
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
@@ -179,14 +180,7 @@ const Home = () => {
         />
         <div className='absolute top-1/2 left-0 -translate-y-1/2 w-full'>
           <MaxWidthWrapper className='lg:max-w-screen-lg flex flex-col'>
-            <div className='relative self-center sm:self-start'>
-              <h1 className='text-6xl sm:text-8xl font-bold tracking-widest text-primary uppercase text-wrap'>
-                Recipify
-              </h1>
-              <h1 className='z-10 absolute -top-1 -left-1 text-6xl sm:text-8xl font-bold tracking-widest text-background uppercase text-wrap'>
-                Recipify
-              </h1>
-            </div>
+            <Logo />
             <form
               onSubmit={handleSubmit(handleSearch)}
               className='flex items-center gap-2 mt-8 sm:justify-center'
