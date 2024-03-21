@@ -92,15 +92,17 @@ const Meal = () => {
     ? data?.meals[0].strTags.split(',').filter(Boolean)
     : [];
 
-  const ingredients = Object.entries(data.meals || {})
+  const ingredients = Object.entries(data?.meals[0] || {})
     .filter(([key, value]) => key.startsWith('strIngredient') && value)
-    .map(([key, value]) => ({
-      ingredient: value,
-      measure:
-        data!.meals[
-          `strMeasure${key.replace('strIngredient', '')}` as keyof MealTypes
-        ],
-    }));
+    .map(([key, value]) => {
+      return {
+        ingredient: value,
+        measure:
+          data!.meals[0][
+            `strMeasure${key.replace('strIngredient', '')}` as keyof MealTypes
+          ],
+      };
+    });
 
   return (
     <MaxWidthWrapper className='my-8'>
