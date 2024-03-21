@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Search } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
-import HeaderImage from '../assets/header-image.jpg';
+import HeaderImage from '../assets/header-image.png';
 import RecipeListing from '@/components/RecipeListing';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import CategoryListing from '@/components/CategoryListing';
@@ -70,7 +70,7 @@ const Home = () => {
 
   const { data: randomMealOne } = useQuery({
     queryKey: ['random-meal-one'],
-    queryFn: () => fetchData('/random.php'),
+    queryFn: () => fetchData('/random.php?cache=one'),
     gcTime: 1000 * 60 * 60 * 24,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -78,7 +78,7 @@ const Home = () => {
 
   const { data: randomMealTwo } = useQuery({
     queryKey: ['random-meal-two'],
-    queryFn: () => fetchData('/random.php'),
+    queryFn: () => fetchData('/random.php?cache=two'),
     gcTime: 1000 * 60 * 60 * 24,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -223,9 +223,11 @@ const Home = () => {
             </>
           ) : (
             <>
-              <TypographyH3 className='mb-4 lg:hidden'>Our Pick</TypographyH3>
+              <TypographyH3 className='mb-4 lg:hidden'>
+                Random Pick
+              </TypographyH3>
               <TypographyH2 className='mb-4 hidden lg:block'>
-                Our Pick
+                Random Pick
               </TypographyH2>
 
               <div className='flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12'>
