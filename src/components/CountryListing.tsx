@@ -21,7 +21,7 @@ const CountryListing = () => {
 
   const { isLoading } = useQuery({
     queryKey: ['country-list'],
-    queryFn: () => fetchData(`/filter.php?a=list`),
+    queryFn: () => fetchData(`/list.php?a=list`),
   });
 
   const memoizedNavigate = useCallback(
