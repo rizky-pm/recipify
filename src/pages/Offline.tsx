@@ -32,13 +32,13 @@ const Offline: React.FC = () => {
         <TypographyH1 className='text-center'>
           Oops! It seems you're offline.
         </TypographyH1>
-        <p className='text-muted-foreground'>
+        <p className='text-muted-foreground mt-4'>
           You are currently offline. Please check your internet connection.
         </p>
         {isOnline ? (
           <Button
             variant={'default'}
-            className='text-lg rounded-full mt-4'
+            className='text-lg rounded-full mt-2'
             onClick={handleRetry}
           >
             Retry
