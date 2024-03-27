@@ -59,10 +59,10 @@ const RandomMeals = () => {
         </>
       ) : (
         <>
-          <TypographyH3 className='mb-4 lg:hidden'>Random Pick</TypographyH3>
           <TypographyH2 className='mb-4 hidden lg:block'>
             Random Pick
           </TypographyH2>
+          <TypographyH3 className='mb-4 lg:hidden'>Random Pick</TypographyH3>
 
           <div className='flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12'>
             {randomMealsData?.map((meal: MealTypes) => (
