@@ -65,6 +65,11 @@ const Header = ({
     }
   };
 
+  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    handleSearch(); // Call your search function
+  };
+
   return (
     <header className='relative h-screen w-full'>
       <img
@@ -80,7 +85,7 @@ const Header = ({
         <MaxWidthWrapper className='lg:max-w-screen-lg flex flex-col'>
           <Logo />
           <form
-            onSubmit={handleSubmit(handleSearch)}
+            onSubmit={handleSubmitSearch}
             className='flex items-center gap-2 mt-8 sm:justify-center'
           >
             <div className='w-full grid grid-cols-10 grid-rows-2 gap-2 grid-areas-custom-layout'>
@@ -99,6 +104,7 @@ const Header = ({
                 aria-label='Search button'
                 className='sm:h-14 grid-area-btn col-span-2 sm:col-span-1 rounded-full'
                 disabled={isSearching}
+                type='submit'
               >
                 {isSearching ? (
                   <svg

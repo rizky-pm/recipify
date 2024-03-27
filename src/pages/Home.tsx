@@ -20,6 +20,7 @@ const Home = () => {
     refetch: byNameRefetch,
     isSuccess: byNameIsSuccess,
     isLoading: byNameIsLoading,
+    isRefetching: byNameIsRefetching,
     isError: byNameIsError,
     error: byNameError,
   } = useQuery({
@@ -35,6 +36,7 @@ const Home = () => {
     refetch: byIngredientRefetch,
     isSuccess: byIngredientIsSuccess,
     isLoading: byIngredientIsLoading,
+    isRefetching: byIngredientIsRefetching,
     isError: byIngredientIsError,
     error: byIngredientError,
   } = useQuery({
@@ -47,7 +49,11 @@ const Home = () => {
 
   const isDoneFetching = byNameIsSuccess && byIngredientIsSuccess;
 
-  const isSearching = byNameIsLoading || byIngredientIsLoading;
+  const isSearching =
+    byNameIsLoading ||
+    byIngredientIsLoading ||
+    byNameIsRefetching ||
+    byIngredientIsRefetching;
 
   useEffect(() => {
     if (byNameData && byIngredientData) {
