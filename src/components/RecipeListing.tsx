@@ -23,11 +23,7 @@ interface Props {
   isDoneFetching?: boolean;
 }
 
-const RecipeListing: React.FC<Props> = ({
-  meals,
-  search,
-  isDoneFetching,
-}: Props) => {
+const RecipeListing: React.FC<Props> = ({ meals, search }: Props) => {
   const [mealsData, setMealsData] = useState<Meal[]>([]);
 
   const { pathname } = useLocation();
@@ -87,6 +83,12 @@ const RecipeListing: React.FC<Props> = ({
     }
   }, [mealsDataFromQuery]);
 
+  useEffect(() => {
+    if (!navigator.onLine) {
+      window.location.reload();
+    }
+  }, [navigator.onLine]);
+
   const memoizedMealsData = useMemo(() => mealsData, [mealsData]);
 
   if (isLoading) {
@@ -106,22 +108,6 @@ const RecipeListing: React.FC<Props> = ({
             )
           )}
         </div>
-      </MaxWidthWrapper>
-    );
-  }
-
-  if (memoizedMealsData.length === 0 && isDoneFetching) {
-    return (
-      <MaxWidthWrapper className='my-8 text-center'>
-        <small className='text-base sm:text-lg md:text-xl font-medium leading-none sm:ml-auto'>
-          No results found for{' '}
-          {search && (
-            <>
-              for <span className='font-bold text-foreground'>"{search}"</span>
-            </>
-          )}
-          . Please try a different search term.
-        </small>
       </MaxWidthWrapper>
     );
   }

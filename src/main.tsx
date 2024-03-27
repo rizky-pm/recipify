@@ -5,19 +5,6 @@ import './global.css';
 import Providers from './components/Providers.tsx';
 import Footer from './components/Footer.tsx';
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/service-worker.js')
-      .then((registration) => {
-        console.log('Service Worker registered:', registration);
-      })
-      .catch((error) => {
-        console.error('Service Worker registration failed:', error);
-      });
-  });
-}
-
 const pathName = window.location.pathname;
 const hideFooterPages = ['/offline'];
 
@@ -29,3 +16,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </div>
   </React.StrictMode>
 );
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/serviceworker.js')
+      .then((registration) => {
+        console.log('Service worker registered:', registration);
+      })
+      .catch((error) => {
+        console.log('Service worker registration failed:', error);
+      });
+  });
+}

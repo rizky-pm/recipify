@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useEffect } from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -39,6 +40,10 @@ const CategoryListing = () => {
       />
     ));
   }, [data?.categories, memoizedNavigate]);
+
+  useEffect(() => {
+    scroll.scrollToTop();
+  }, []);
 
   if (isLoading) {
     return (

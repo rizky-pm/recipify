@@ -10,18 +10,16 @@ import TypographyH3 from '@/components/TypographyH3';
 import TypographyH2 from '@/components/TypographyH2';
 import TypographyH1 from '@/components/TypographyH1';
 import { Link2, Youtube } from 'lucide-react';
-import { API_BASE_URL } from '@/constants';
 import { MealTypes } from '@/types';
 import NotFound from '@/components/NotFound';
 import BackButton from '@/components/BackButton';
+import { fetchData } from '@/lib/utils';
 
 const Meal = () => {
   const { mealId } = useParams();
-
   const { data, isLoading } = useQuery({
     queryKey: ['meal-detail'],
-    queryFn: () =>
-      fetch(`${API_BASE_URL}/lookup.php?i=${mealId}`).then((res) => res.json()),
+    queryFn: () => fetchData(`/lookup.php?i=${mealId}`),
     gcTime: 0,
   });
 
@@ -85,14 +83,33 @@ const Meal = () => {
     );
   }
 
-  const instruction = data?.meals[0].strInstructions
+  // const instruction = data?.meals[0].strInstructions
+  //   ?.split("\n")
+  //   .filter(Boolean);
+  // const tags = data?.meals[0].strTags
+  //   ? data?.meals[0].strTags.split(",").filter(Boolean)
+  //   : [];
+
+  // const ingredients = Object.entries(data?.meals[0] || {})
+  //   .filter(([key, value]) => key.startsWith("strIngredient") && value)
+  //   .map(([key, value]) => {
+  //     return {
+  //       ingredient: value,
+  //       measure:
+  //         data!.meals[0][
+  //           `strMeasure${key.replace("strIngredient", "")}` as keyof MealTypes
+  //         ],
+  //     };
+  //   });
+
+  const instruction = data.meals[0].strInstructions
     ?.split('\n')
     .filter(Boolean);
-  const tags = data?.meals[0].strTags
-    ? data?.meals[0].strTags.split(',').filter(Boolean)
+  const tags = data.meals[0].strTags
+    ? data.meals[0].strTags.split(',').filter(Boolean)
     : [];
 
-  const ingredients = Object.entries(data?.meals[0] || {})
+  const ingredients = Object.entries(data.meals[0] || {})
     .filter(([key, value]) => key.startsWith('strIngredient') && value)
     .map(([key, value]) => {
       return {
@@ -109,24 +126,24 @@ const Meal = () => {
       <div className='flex flex-col'>
         <div className='flex items-center justify-center sm:justify-start md:-ml-12'>
           <BackButton className='hidden md:flex' />
-          <TypographyH1>{data?.meals[0].strMeal}</TypographyH1>
+          <TypographyH1>{data.meals[0].strMeal}</TypographyH1>
         </div>
         <img
-          src={data?.meals[0].strMealThumb}
-          alt={data?.meals[0].strMeal}
+          src={data.meals[0].strMealThumb}
+          alt={data.meals[0].strMeal}
           className='my-4 rounded-md h-80 lg:h-96 sm:w-full aspect-square sm:aspect-video sm:object-cover'
         />
       </div>
 
       <div className='flex flex-wrap gap-2 mb-4'>
-        {data?.meals[0].strArea && (
+        {data.meals[0].strArea && (
           <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/50'>
-            {data?.meals[0].strArea}
+            {data.meals[0].strArea}
           </Badge>
         )}
-        {data?.meals[0].strCategory && (
+        {data.meals[0].strCategory && (
           <Badge className='sm:px-4 sm:py-1 sm:text-base bg-primary/50'>
-            {data?.meals[0].strCategory}
+            {data.meals[0].strCategory}
           </Badge>
         )}
         {tags.map((tag: string, index: number) => (
@@ -162,9 +179,9 @@ const Meal = () => {
       </div>
 
       <div className='mt-4 flex-wrap flex items-center gap-4'>
-        {data?.meals[0].strSource && (
+        {data.meals[0].strSource && (
           <a
-            href={data?.meals[0].strSource}
+            href={data.meals[0].strSource}
             target='_blank'
             rel='noopener noreferrer'
             className='group flex gap-1 items-center text-foreground hover:text-primary transition-all'
@@ -175,9 +192,9 @@ const Meal = () => {
             </span>
           </a>
         )}
-        {data?.meals[0].strYoutube && (
+        {data.meals[0].strYoutube && (
           <a
-            href={data?.meals[0].strYoutube}
+            href={data.meals[0].strYoutube}
             target='_blank'
             rel='noopener noreferrer'
             className='group flex gap-1 items-center text-foreground hover:text-primary transition-all'

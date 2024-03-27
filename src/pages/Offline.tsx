@@ -2,13 +2,17 @@ import Logo from '@/components/Logo';
 import TypographyH1 from '@/components/TypographyH1';
 import { Button } from '@/components/ui/button';
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Offline: React.FC = () => {
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  console.log(state.origin);
 
   const handleRetry = () => {
     if (navigator.onLine) {
-      window.location.href = '/';
+      navigate(state.origin);
     }
   };
 
