@@ -1,6 +1,6 @@
 import CanadaFlag from '../assets/flags/CA.png';
 import ChinaFlag from '../assets/flags/CN.png';
-import CroatiaFlag from '../assets/flags/CR.svg';
+import CroatiaFlag from '../assets/flags/CR.png';
 import AmericaFlag from '../assets/flags/US.png';
 import UkFlag from '../assets/flags/UK.png';
 import GermanFlag from '../assets/flags/DU.png';

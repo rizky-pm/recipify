@@ -6,7 +6,6 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import { fetchData } from '@/lib/utils';
 import TypographyH2 from './TypographyH2';
-import TypographyH3 from './TypographyH3';
 import { Skeleton } from './ui/skeleton';
 import { CategoryTypes } from '@/types';
 
@@ -51,8 +50,9 @@ const CategoryListing = () => {
 
   return data ? (
     <MaxWidthWrapper>
-      <TypographyH3 className='mb-2 lg:hidden'>Categories</TypographyH3>
-      <TypographyH2 className='mb-2 hidden lg:block'>Categories</TypographyH2>
+      <TypographyH2 className='mb-2 text-2xl lg:text-3xl'>
+        Categories
+      </TypographyH2>
       <ScrollArea className='w-full whitespace-nowrap rounded-md bg-background card-shadow'>
         <div className='flex w-max space-x-4 lg:space-x-6 px-4 lg:px-6 py-6 lg:py-8'>
           <div
@@ -80,7 +80,7 @@ const CategoryCard = ({ category, navigate }: CategoryCardProps) => (
       <img
         src={category.strCategoryThumb}
         alt={category.strCategoryDescription}
-        className='w-44 h-32 lg:w-48 lg:h-36 bg-muted'
+        className='w-44 h-32 lg:w-48 lg:h-36 bg-muted aspect-square object-cover'
       />
     </div>
     <figcaption className='pt-2 text-base text-muted-foreground'>
