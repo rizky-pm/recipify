@@ -6,7 +6,6 @@ import { animateScroll as scroll } from 'react-scroll';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import TypographyH3 from '@/components/TypographyH3';
 import TypographyH2 from '@/components/TypographyH2';
 import TypographyH1 from '@/components/TypographyH1';
 import { Link2, Youtube } from 'lucide-react';
@@ -83,25 +82,6 @@ const Meal = () => {
     );
   }
 
-  // const instruction = data?.meals[0].strInstructions
-  //   ?.split("\n")
-  //   .filter(Boolean);
-  // const tags = data?.meals[0].strTags
-  //   ? data?.meals[0].strTags.split(",").filter(Boolean)
-  //   : [];
-
-  // const ingredients = Object.entries(data?.meals[0] || {})
-  //   .filter(([key, value]) => key.startsWith("strIngredient") && value)
-  //   .map(([key, value]) => {
-  //     return {
-  //       ingredient: value,
-  //       measure:
-  //         data!.meals[0][
-  //           `strMeasure${key.replace("strIngredient", "")}` as keyof MealTypes
-  //         ],
-  //     };
-  //   });
-
   const instruction = data.meals[0].strInstructions
     ?.split('\n')
     .filter(Boolean);
@@ -154,8 +134,9 @@ const Meal = () => {
       </div>
 
       <div>
-        <TypographyH3 className='lg:hidden'>Ingredients</TypographyH3>
-        <TypographyH2 className='hidden lg:block'>Ingredients</TypographyH2>
+        <TypographyH2 className='text-2xl lg:text-3xl'>
+          Ingredients
+        </TypographyH2>
         <ul>
           {ingredients.map(({ ingredient, measure }, index) => (
             <li key={index}>
@@ -166,8 +147,9 @@ const Meal = () => {
       </div>
 
       <div className='mt-4'>
-        <TypographyH3 className='lg:hidden'>Instructions</TypographyH3>
-        <TypographyH2 className='hidden lg:block'>Instructions</TypographyH2>
+        <TypographyH2 className='text-2xl lg:text-3xl'>
+          Instructions
+        </TypographyH2>
         {instruction?.map((line: string, index: number) => (
           <p key={index} className='mb-[1em]'>
             {line}
