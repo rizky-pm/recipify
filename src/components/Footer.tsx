@@ -4,18 +4,20 @@ import MaxWidthWrapper from './MaxWidthWrapper';
 interface FooterLinkProps {
   href: string;
   icon: JSX.Element;
+  ariaLabel: string;
 }
 
 interface FooterProps {
   showFooter: boolean;
 }
 
-const FooterLink: React.FC<FooterLinkProps> = ({ href, icon }) => {
+const FooterLink: React.FC<FooterLinkProps> = ({ href, icon, ariaLabel }) => {
   return (
     <a
       href={href}
       target='_blank'
       rel='noopener noreferrer'
+      aria-label={ariaLabel}
       className='group flex gap-1 items-center text-foreground hover:text-primary hover:bg-primary w-12 h-12 sm:w-16 sm:h-16 justify-center rounded-full transition-all'
     >
       {icon}
@@ -43,18 +45,21 @@ const Footer = ({ showFooter }: FooterProps) => {
 
             <div className='flex space-x-2 justify-center lg:justify-end'>
               <FooterLink
+                ariaLabel='Visit Rizky P. Mahendra linkedin profile'
                 href={'https://linkedin.com/in/rizky-p-mahendra/'}
                 icon={
                   <Linkedin className='w-7 h-7 sm:w-8 sm:h-8 text-foreground group-hover:text-background transition-all' />
                 }
               />
               <FooterLink
+                ariaLabel='Visit Rizky P. Mahendra github profile'
                 href={'https://github.com/rizky-pm'}
                 icon={
                   <Github className='w-7 h-7 sm:w-8 sm:h-8 text-foreground group-hover:text-background transition-all' />
                 }
               />
               <FooterLink
+                ariaLabel='Compose email to Rizky P. Mahendra'
                 href={'mailto:rizkymahendra2346@gmail.com'}
                 icon={
                   <Mail className='w-7 h-7 sm:w-8 sm:h-8 text-foreground group-hover:text-background transition-all' />
