@@ -85,10 +85,10 @@ const RandomMeals = () => {
                     {meal.strMeal}
                   </CardTitle>
                   <div className='hidden sm:flex sm:gap-2 sm:mt-4 sm:flex-wrap'>
-                    <Badge className='px-4 py-1 text-base bg-primary/50'>
+                    <Badge variant={'secondary'} className='px-4 py-1 text-sm'>
                       {meal.strArea}
                     </Badge>
-                    <Badge className='px-4 py-1 text-base bg-primary/50'>
+                    <Badge variant={'secondary'} className='px-4 py-1 text-sm'>
                       {meal.strCategory}
                     </Badge>
                     {meal.strTags
@@ -96,7 +96,8 @@ const RandomMeals = () => {
                       .filter(Boolean)
                       .map((tag: string) => (
                         <Badge
-                          className='px-4 py-1 text-base bg-primary/50'
+                          variant={'secondary'}
+                          className='px-4 py-1 text-sm'
                           key={tag}
                         >
                           {tag}
@@ -104,10 +105,11 @@ const RandomMeals = () => {
                       ))}
                   </div>
                   <Button
+                    size={'sm'}
                     onClick={() =>
                       !isMobileScreen ? handleClick(meal.idMeal) : null
                     }
-                    className='self-end mt-auto text-base hidden sm:block'
+                    className='self-end mt-auto text-sm hidden sm:block'
                     aria-label='Navigate to meal recipe detail page button'
                   >
                     Read More

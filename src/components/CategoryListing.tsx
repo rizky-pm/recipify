@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useMemo, useCallback, useEffect } from 'react';
-import { animateScroll as scroll } from 'react-scroll';
+import { useMemo, useCallback } from 'react';
 
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import MaxWidthWrapper from './MaxWidthWrapper';
@@ -41,10 +40,6 @@ const CategoryListing = () => {
     ));
   }, [data?.categories, memoizedNavigate]);
 
-  useEffect(() => {
-    scroll.scrollToTop();
-  }, []);
-
   if (isLoading) {
     return (
       <MaxWidthWrapper className='mt-4 flex flex-col'>
@@ -58,13 +53,13 @@ const CategoryListing = () => {
     <MaxWidthWrapper>
       <TypographyH3 className='mb-2 lg:hidden'>Categories</TypographyH3>
       <TypographyH2 className='mb-2 hidden lg:block'>Categories</TypographyH2>
-      <ScrollArea className='w-full whitespace-nowrap rounded-md bg-primary/50 card-shadow'>
+      <ScrollArea className='w-full whitespace-nowrap rounded-md bg-background card-shadow'>
         <div className='flex w-max space-x-4 lg:space-x-6 px-4 lg:px-6 py-6 lg:py-8'>
           <div
             id='section'
             className='w-44 lg:w-52 flex flex-col justify-center rounded'
           >
-            <p className='whitespace-normal text-3xl lg:text-4xl font-bold text-background'>
+            <p className='whitespace-normal text-3xl lg:text-4xl font-bold text-foreground'>
               Indulge in diverse culinary categories
             </p>
           </div>
@@ -78,18 +73,18 @@ const CategoryListing = () => {
 
 const CategoryCard = ({ category, navigate }: CategoryCardProps) => (
   <figure
-    className='shrink-0 p-4 lg:p-6 rounded bg-background cursor-pointer'
+    className='shrink-0 p-4 rounded-lg bg-background cursor-pointer border-2 border-border hover:border-primary transition-colors'
     onClick={() => navigate(`category/${category.strCategory}`)}
   >
     <div className='overflow-hidden rounded-md'>
       <img
         src={category.strCategoryThumb}
         alt={category.strCategoryDescription}
-        className='w-44 h-32 lg:w-48 lg:h-36'
+        className='w-44 h-32 lg:w-48 lg:h-36 bg-muted'
       />
     </div>
     <figcaption className='pt-2 text-base text-muted-foreground'>
-      <span className='font-semibold text-foreground text-xl lg:text-2xl'>
+      <span className='font-semibold text-foreground text-base lg:text-lg'>
         {category.strCategory}
       </span>
     </figcaption>

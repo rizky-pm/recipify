@@ -55,10 +55,10 @@ const CountryListing = () => {
       <TypographyH3 className='mb-2 lg:hidden'>Countries</TypographyH3>
       <TypographyH2 className='mb-2 hidden lg:block'>Countries</TypographyH2>
 
-      <ScrollArea className='w-full whitespace-nowrap rounded-md bg-primary/50 card-shadow'>
+      <ScrollArea className='w-full whitespace-nowrap rounded-md bg-background card-shadow'>
         <div className='flex w-max space-x-4 lg:space-x-6 px-4 lg:px-6 py-6 lg:py-8'>
           <div className='w-44 lg:w-52 flex flex-col justify-center rounded'>
-            <p className='whitespace-normal text-3xl lg:text-4xl font-bold text-background'>
+            <p className='whitespace-normal text-3xl lg:text-4xl font-bold text-foreground'>
               Discover recipes from around the globe
             </p>
           </div>
@@ -72,7 +72,7 @@ const CountryListing = () => {
 
 const CountryCard = ({ country, navigate }: CountryCardProps) => (
   <figure
-    className='shrink-0 p-4 lg:p-6 rounded bg-background cursor-pointer'
+    className='shrink-0 p-4 rounded-lg bg-background cursor-pointer border-2 border-border hover:border-primary transition-colors'
     onClick={() => navigate(`country/${country.strArea}`)}
   >
     <div className='overflow-hidden rounded-md'>
@@ -83,7 +83,7 @@ const CountryCard = ({ country, navigate }: CountryCardProps) => (
       />
     </div>
     <figcaption className='pt-2 text-base text-muted-foreground'>
-      <span className='font-semibold text-foreground text-xl lg:text-2xl'>
+      <span className='font-semibold text-foreground text-base lg:text-lg'>
         {country.strArea}
       </span>
     </figcaption>
