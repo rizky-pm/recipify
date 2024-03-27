@@ -44,7 +44,6 @@ const Header = ({
 }: Props) => {
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<TSearchTermValidator>({
     resolver: zodResolver(SearchTermValidator),
