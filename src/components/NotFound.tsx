@@ -20,6 +20,7 @@ const NotFound = () => {
           variant={'default'}
           className='text-lg rounded-full mt-4'
           onClick={handleBackButton}
+          aria-label='Go to previous page button'
         >
           Go Back
         </Button>

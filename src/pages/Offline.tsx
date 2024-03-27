@@ -44,6 +44,7 @@ const Offline: React.FC = () => {
             variant={'default'}
             className='text-lg rounded-full mt-2'
             onClick={handleRetry}
+            aria-label='Retry connection button'
           >
             Retry
           </Button>

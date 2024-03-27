@@ -96,6 +96,7 @@ const Header = ({
                 disabled={byNameIsLoading && byIngredientIsLoading}
               />
               <Button
+                aria-label='Search button'
                 className='sm:h-14 grid-area-btn col-span-2 sm:col-span-1 rounded-full'
                 disabled={isSearching}
               >

@@ -108,6 +108,7 @@ const RandomMeals = () => {
                       !isMobileScreen ? handleClick(meal.idMeal) : null
                     }
                     className='self-end mt-auto text-base hidden sm:block'
+                    aria-label='Navigate to meal recipe detail page button'
                   >
                     Read More
                   </Button>
