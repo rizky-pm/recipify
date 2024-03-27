@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reset CSS */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .justify-center {
+        justify-content: center;
+      }
+
+      .items-center {
+        align-items: center;
+      }
+
+      .h-screen {
+        height: 100vh;
+      }
+
+      .grid {
+        display: grid;
+      }
+
+      .place-items-center {
+        place-items: center;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .mt-4 {
+        margin-top: 1rem;
+      }
+
+      .text-lg {
+        font-size: 1.125rem;
+      }
+
+      .rounded-full {
+        border-radius: 9999px;
+      }
+
+      .mt-2 {
+        margin-top: 0.5rem;
+      }
+
+      /* Logo Styles */
+      .logo-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo-text {
+        font-size: 6rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        white-space: nowrap;
+        margin: 0;
+      }
+
+      .main-text {
+        z-index: 1;
+        position: relative;
+        color: #16a34a;
+      }
+
+      .shadow-text {
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        z-index: 10;
+        color: #f4f4f5; /* Muted text color */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex justify-center h-screen items-center">
+      <div class="grid place-items-center">
+        <div class="logo-container">
+          <h1 class="logo-text shadow-text">Recipify</h1>
+          <h1 class="logo-text main-text">Recipify</h1>
+        </div>
+        <h1 class="text-center">Oops! It seems you're offline.</h1>
+        <p>You are currently offline. Please check your internet connection.</p>
+        <p>Please reconnect to the internet and try again.</p>
+      </div>
+    </div>
+  </body>
+</html>
